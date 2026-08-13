@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "Sage Leather Data",
   "nodes": [
     {
@@ -13,10 +13,10 @@
         "triggerOn": "specificFolder",
         "folderToWatch": {
           "__rl": true,
-          "value": "1t-V-4F7JIhJr5zB5h7iVYJmRF0r-0XlK",
+          "value": "YOUR_GOOGLE_DRIVE_FOLDER_ID",
           "mode": "list",
           "cachedResultName": "Sage Leather",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1t-V-4F7JIhJr5zB5h7iVYJmRF0r-0XlK"
+          "cachedResultUrl": "https://drive.google.com/drive/folders/YOUR_GOOGLE_DRIVE_FOLDER_ID"
         },
         "event": "fileUpdated",
         "options": {}
@@ -156,7 +156,7 @@
       "parameters": {
         "operation": "send",
         "phoneNumberId": "1092180147305432",
-        "recipientPhoneNumber": "=+923299642616",
+        "recipientPhoneNumber": "=+92XXXXXXXXXX",
         "textBody": "={{ $json.output }}",
         "additionalFields": {}
       },
@@ -860,7 +860,7 @@
             {
               "id": "e576da03-9843-4e4c-9f4e-6122b5aee067",
               "name": "Website Url",
-              "value": "https://sageleather.com.pk/sitemap_products_1.xml?from=10096796958852&to=10276338303108",
+              "value": "https://example-client-site.com/sitemap_products_1.xml?from=10096796958852&to=10276338303108",
               "type": "string"
             }
           ]
@@ -927,17 +927,17 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY",
+          "value": "YOUR_GOOGLE_SHEET_ID_6",
           "mode": "list",
           "cachedResultName": "Sage Leather",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_6/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_6/edit#gid=0"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -1002,17 +1002,17 @@
         "toolDescription": "This tool is used to retrieve accurate product-related data for Sage Leather.",
         "documentId": {
           "__rl": true,
-          "value": "1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY",
+          "value": "YOUR_GOOGLE_SHEET_ID_6",
           "mode": "list",
           "cachedResultName": "Sage Leather",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_6/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_6/edit#gid=0"
         },
         "options": {}
       },
