@@ -1,0 +1,1439 @@
+﻿{
+  "name": "Sage Leather Data",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1t-V-4F7JIhJr5zB5h7iVYJmRF0r-0XlK",
+          "mode": "list",
+          "cachedResultName": "Sage Leather",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1t-V-4F7JIhJr5zB5h7iVYJmRF0r-0XlK"
+        },
+        "event": "fileUpdated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1008,
+        1088
+      ],
+      "id": "eb6bf7c8-20a2-473b-b8e0-a370dac4bf84",
+      "name": "Google Drive Trigger",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "t1pwhIvHgiYhDdwz",
+          "name": "Google Drive OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "loader": "pdfLoader",
+        "textSplittingMode": "custom",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        -432,
+        1104
+      ],
+      "id": "4a9f6ecc-53ef-4032-a868-9fac18a2a13e",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "chunkSize": 3000,
+        "chunkOverlap": 200,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        1312
+      ],
+      "id": "928b0f46-f7d3-4181-a18e-5e4998114855",
+      "name": "Recursive Character Text Splitter"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -560,
+        1104
+      ],
+      "id": "a3066007-26fd-4d3b-a81e-3150c70c3611",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "XKiVSn1ZiqHlN1pG",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        272,
+        672
+      ],
+      "id": "c9072875-a80a-4316-8961-3c37e0d5ddc4",
+      "name": "WhatsApp Trigger",
+      "webhookId": "713fa4f6-e3a4-46ef-8047-0ed8e84e9388",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "ofoKvKINVGzEkUrM",
+          "name": "WhatsApp OAuth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemMessage": "You are Ali, a highly professional Customer Support and Sales Agent for Sage Leather.\n\nYour job is to:\n\n* Assist customers with accurate product and company information\n* Guide users toward making a purchase\n* Respond like a real human in a WhatsApp-style conversation\n* Build trust and keep responses simple, clear, and helpful\n\n---\n\n## 🔹 AVAILABLE TOOLS\n\n1. retrieve_sage_leather_info\n   Use this tool when the user asks about:\n\n* Leather quality\n* Material details\n* Product durability\n* Brand/company information\n* General product knowledge\n* Policies (if available)\n\n2. Pricing\n   Use this tool when the user asks about:\n\n* Product price\n* Product title\n* Product description\n* Discounts or offers\n\n---\n\n## 🔹 TOOL USAGE LOGIC (CRITICAL)\n\n* NEVER guess or assume anything\n\n* ALWAYS rely on tool data when question is related\n\n* If query = informational → use retrieve_sage_leather_info\n\n* If query = pricing/product → use Pricing\n\n* If query = both → call BOTH tools\n\n* Merge results naturally in final answer\n\n* If tool does NOT return data:\n  → Say politely: \"Main confirm karke batata hoon 🙂\"\n\n---\n\n## 🔹 LANGUAGE CONTROL\n\n* Default language: Roman Urdu\n* If user speaks English → reply in English\n* Prefer Roman Urdu even if user mixes language\n* Avoid complex words\n* Keep sentences short\n\n---\n\n## 🔹 RESPONSE STYLE (WHATSAPP MODE)\n\n* Write like real chat (NOT paragraphs)\n* Use line breaks\n* Friendly tone\n* Light emojis allowed (🙂👍)\n* No overuse of emojis\n* No robotic replies\n\nExample format:\n\"Ji 👍\n\nYeh product high quality leather ka hai\n\nPrice: 4500 PKR\n\nAgar aap order karna chahen to batayein 🙂\"\n\n---\n\n## 🔹 SALES BEHAVIOR (SOFT SELLING)\n\n* Never force sale\n* Gently guide user\n* Always end with a soft CTA:\n  → \"Agar aap chahen to main order process guide kar deta hoon 🙂\"\n  → \"Aap ko aur details chahiye ho to batayein\"\n\n---\n\n## 🔹 INTENT DETECTION\n\nYou must identify user intent:\n\n1. INFO INTENT\n   → quality, material, brand, durability\n   → use retrieve_sage_leather_info\n\n2. BUYING INTENT\n   → price, product, order\n   → use Pricing\n\n3. MIXED INTENT\n   → both info + price\n   → use BOTH tools\n\n4. CONFUSED USER\n   → guide them step-by-step\n\n---\n\n## 🔹 EDGE CASE HANDLING\n\n* If user unclear:\n  → ask short question\n  → \"Aap kis product ke baare mein pooch rahe hain?\"\n\n* If user wants recommendation:\n  → suggest based on available info (via tools only)\n\n* If user repeats question:\n  → respond politely, not frustrated\n\n---\n\n## 🔹 STRICT RULES\n\n❌ No fake info\n❌ No guessing\n❌ No long paragraphs\n❌ No technical jargon\n❌ No robotic tone\n\n✅ Always human-like\n✅ Always tool-based answers\n✅ Always helpful\n\n---\n\n## 🎯 FINAL GOAL\n\n* Help user clearly\n* Build trust\n* Convert into potential customer\n* Keep conversation natural\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1984,
+        672
+      ],
+      "id": "5f584735-f7a6-43f2-a2fb-9621a93ffbf1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1840,
+        896
+      ],
+      "id": "6a70989c-0b40-47e1-b6ab-45d7ad929125",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "XKiVSn1ZiqHlN1pG",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1092180147305432",
+        "recipientPhoneNumber": "=+923299642616",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        2464,
+        672
+      ],
+      "id": "09fc642e-dd91-4877-a07e-4e73cae0ec3f",
+      "name": "Send message",
+      "webhookId": "8f2b9672-c905-47db-b1e5-42d1a138c0ca",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "TKXYs9EI0RN3Ynht",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "media",
+        "operation": "mediaUrlGet",
+        "mediaGetId": "={{ $json.messages[0].audio.id }}"
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        672
+      ],
+      "id": "93ab454d-fb40-460f-9644-863852b3db20",
+      "name": "Audio download",
+      "webhookId": "64313206-d1eb-41ea-9fc0-dc4634d223fa",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "TKXYs9EI0RN3Ynht",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.messages[0].text.body }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "e9e5c87c-b36b-413c-bcb3-a64f60049790"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "3d63872e-ad73-4b6d-a8a3-d4b1a22e8235",
+                    "leftValue": "={{ $json.messages[0].audio.id }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "d7938ac2-e0ff-48b9-82bb-472eca5218d2",
+                    "leftValue": "={{ $json.messages[0].image.id }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "image"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        496,
+        656
+      ],
+      "id": "89dbe698-7dde-4cc9-8e79-901aa75b47bf",
+      "name": "Switch",
+      "alwaysOutputData": false,
+      "retryOnFail": false,
+      "executeOnce": false,
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        672
+      ],
+      "id": "1ee28ebf-6b53-4a98-9a13-13f27310cbf9",
+      "name": "Transcribe a recording1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "LxVPnOh5JiA51fQX",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9ac94e30-d290-450b-8064-8c86ab3e0d90",
+              "name": "text",
+              "value": "={{ $json.messages[0].text.body }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1616,
+        480
+      ],
+      "id": "f71bc3ab-414c-45e1-8e65-d3ebf0787973",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1392,
+        672
+      ],
+      "id": "26619f28-95f3-47b6-ae75-52a317c8f3a8",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2041a21a-e1f5-494b-ad18-f35b7668e6bf",
+              "name": "text",
+              "value": "={{ $json.content.parts[0] }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1616,
+        672
+      ],
+      "id": "7a2febec-807c-4154-9daa-359a8e344831",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1392,
+        864
+      ],
+      "id": "0bc08413-cc11-43b1-aa98-b56f34b825c1",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2041a21a-e1f5-494b-ad18-f35b7668e6bf",
+              "name": "text",
+              "value": "={{ $json.content }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1616,
+        864
+      ],
+      "id": "6f5722f5-5a3b-428a-98ed-3c433224fa88",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        864
+      ],
+      "id": "04e0ad47-e373-4d2a-9740-1410c287bbeb",
+      "name": "Analyze an image",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "LxVPnOh5JiA51fQX",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2048,
+        1104
+      ],
+      "id": "623c57d5-b943-4157-a26f-921e5746105f",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "XKiVSn1ZiqHlN1pG",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Use this tool to fetch SAGE Leather's official data, including the 50% OFF price list, store locations (30+ branches), payment methods, and refund/claims policies. Call this whenever a user asks for specific product rates, company background, or order-related rules to ensure accuracy.",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "sageleather",
+          "mode": "list",
+          "cachedResultName": "sageleather"
+        },
+        "options": {
+          "pineconeNamespace": "FAQs"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        1968,
+        896
+      ],
+      "id": "3770080f-8f99-4411-b2a1-0e828587ad2b",
+      "name": "retrieve_sage_leather_info",
+      "credentials": {
+        "pineconeApi": {
+          "id": "ShuB4m0bjZfEVYkB",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "media",
+        "operation": "mediaUrlGet",
+        "mediaGetId": "={{ $json.messages[0].image.id }}"
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        864
+      ],
+      "id": "c321805e-246b-4bf9-9d5b-917c59961c98",
+      "name": "Image download",
+      "webhookId": "64313206-d1eb-41ea-9fc0-dc4634d223fa",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "TKXYs9EI0RN3Ynht",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "whatsAppApi",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"name\": \"Authorization\",\n  \"value\": \"EAAVSiJQtWz0BRTUpOKPB1NZBpFSdjsccXWf6xi7eeQdb86bLvkGY5tYGgKc0FKdWH9tiT5PZAQZAdS8BBXQWsjpLT4eza85wdN6zpSIaqpHMf0U9wuMUCgy4qRptihK7CANedZC8B8vTT6fLHOvI0bpI5D8wfr7ZBrlxldsAhnp38pFhZAnSxGkftka9MEQr1E4joLMRsdUYMQQJnhL2UO8lDTyUZCuAoH0NiZCn5nTWQUNZAtRmqCzWkWBZA2FhUnhsmNge7i3cg1HVoiR7OqRkBW\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        944,
+        672
+      ],
+      "id": "db4a34a6-478e-4b47-8442-b03e0ca68fba",
+      "name": "Voice Request",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "TKXYs9EI0RN3Ynht",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "whatsAppApi",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"name\": \"Authorization\",\n  \"value\": \"EAAVSiJQtWz0BRTUpOKPB1NZBpFSdjsccXWf6xi7eeQdb86bLvkGY5tYGgKc0FKdWH9tiT5PZAQZAdS8BBXQWsjpLT4eza85wdN6zpSIaqpHMf0U9wuMUCgy4qRptihK7CANedZC8B8vTT6fLHOvI0bpI5D8wfr7ZBrlxldsAhnp38pFhZAnSxGkftka9MEQr1E4joLMRsdUYMQQJnhL2UO8lDTyUZCuAoH0NiZCn5nTWQUNZAtRmqCzWkWBZA2FhUnhsmNge7i3cg1HVoiR7OqRkBW\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        944,
+        864
+      ],
+      "id": "a3f496c3-5406-4cae-a424-4facabf9fef9",
+      "name": "Image Request1",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "TKXYs9EI0RN3Ynht",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -784,
+        1088
+      ],
+      "id": "77fe8388-4c48-4488-a99a-88ade15ea1e3",
+      "name": "Sage Leather",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "t1pwhIvHgiYhDdwz",
+          "name": "Google Drive OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "sageleather",
+          "mode": "list",
+          "cachedResultName": "sageleather"
+        },
+        "options": {
+          "pineconeNamespace": "FAQs"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        -528,
+        880
+      ],
+      "id": "4638233a-5ece-42d3-8528-c0e9c1cbd87b",
+      "name": "Seage Leather Data",
+      "credentials": {
+        "pineconeApi": {
+          "id": "ShuB4m0bjZfEVYkB",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        1488
+      ],
+      "id": "773ee563-ffc8-4724-b6eb-522739a507ce",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json['Website Url'] }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "Accept",
+              "value": "=application/xml, text/plain, */*"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.google.com/"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.9"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        704,
+        1488
+      ],
+      "id": "d2141645-4b1a-4b55-b740-89d570f97654",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "sub-pages.url",
+              "cssSelector": "loc",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        928,
+        1488
+      ],
+      "id": "3cfad2b8-4446-42e0-8ad2-8392e4e86fed",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $json;\n\n// 1) collect all values from sub-pages.url\nlet urls = [];\n\n// case 1: proper array\nif (Array.isArray(input[\"sub-pages.url\"])) {\n  urls = input[\"sub-pages.url\"];\n}\n\n// case 2: indexed object like sub-pages.url[82]\nelse {\n  for (const key in input) {\n    if (key.startsWith(\"sub-pages.url\")) {\n      urls.push(input[key]);\n    }\n  }\n}\n\n// 2) clean + filter product URLs\nconst productUrls = urls\n  .filter(url => typeof url === \"string\" && url.includes(\"/products/\"));\n\n// 3) return n8n items\nreturn productUrls.map(url => ({\n  json: {\n    product_url: url\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        1488
+      ],
+      "id": "fed6dac3-3838-44e5-8304-c30e90c722c6",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "batchSize": 5,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1376,
+        1488
+      ],
+      "id": "1b19a838-1dad-4104-a761-e0d8a536dbc4",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.product_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "Accept",
+              "value": "application/xml, text/plain, */*"
+            },
+            {
+              "name": "Referer",
+              "value": "https://www.google.com/"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.9"
+            }
+          ]
+        },
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 5,
+              "batchInterval": 2000
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1600,
+        1424
+      ],
+      "id": "465e7bf8-e849-4f9f-9faf-963f371ef1f7",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "Title",
+              "cssSelector": "=meta[property=\"og:title\"]",
+              "returnValue": "attribute",
+              "attribute": "content"
+            },
+            {
+              "key": "Description",
+              "cssSelector": "meta[name=\"description\"]",
+              "returnValue": "attribute",
+              "attribute": "content"
+            },
+            {
+              "key": "Price",
+              "cssSelector": "meta[property=\"og:price:amount\"]",
+              "returnValue": "attribute",
+              "attribute": "content"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        1824,
+        1424
+      ],
+      "id": "0f6fcfd9-b3c0-4122-bed0-a1606fc7fa16",
+      "name": "HTML1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "51fe7a86-5a20-4d66-9e0f-5905ecdfdfda",
+              "name": "Title",
+              "value": "={{ $json.Title }}",
+              "type": "string"
+            },
+            {
+              "id": "7ea88f76-bc07-468e-a2b5-1001f617c958",
+              "name": "Price",
+              "value": "={{ $json.Price }}",
+              "type": "string"
+            },
+            {
+              "id": "a9bbfd05-965f-4728-ab8d-780b3cf0da04",
+              "name": "Description",
+              "value": "={{ $json.Description }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2048,
+        1424
+      ],
+      "id": "01670610-1aca-4b44-9643-0efb1c4aff97",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Code Node (JavaScript)\n// Har item par loop chalaye ga jo pichle node se aa raha hai\n\nreturn items.map(item => {\n  // Check karte hain ke Price maujood hai ya nahi\n  if (item.json.Price) {\n    \n    // 1. Agar sirf \"Rs\" add karna hai:\n    let formattedPrice = \"Rs \" + item.json.Price;\n\n    /* 2. Optional: Agar aap comma (,) khatam karna chahte hain to neche wali line use karein:\n    let formattedPrice = \"Rs \" + item.json.Price.replace(/,/g, ''); \n    */\n\n    item.json.Price = formattedPrice;\n  }\n\n  return item;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2272,
+        1424
+      ],
+      "id": "13e5a853-d8bc-4558-b007-250618e34da9",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e576da03-9843-4e4c-9f4e-6122b5aee067",
+              "name": "Website Url",
+              "value": "https://sageleather.com.pk/sitemap_products_1.xml?from=10096796958852&to=10276338303108",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        1488
+      ],
+      "id": "61e21115-7744-4df1-acb5-a762ad64ee31",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 608,
+        "width": 896
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1056,
+        848
+      ],
+      "id": "7345f0f6-5b72-405d-a11d-361686f37fc6",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 352,
+        "width": 2384
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        256,
+        1392
+      ],
+      "id": "26545809-d8af-4e94-92bd-7e86570dae53",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 784,
+        "width": 2464,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        192,
+        464
+      ],
+      "id": "e0fe879f-d6b2-4ddd-9f51-247006d67c19",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY",
+          "mode": "list",
+          "cachedResultName": "Sage Leather",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $json.Title }}",
+            "price": "={{ $json.Price }}",
+            "Description": "={{ $json.Description }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "price",
+              "displayName": "price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2496,
+        1488
+      ],
+      "id": "f2866281-6bcd-4400-a358-2572ac2c1c58",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3kfKCFcO7JLTBZ67",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "This tool is used to retrieve accurate product-related data for Sage Leather.",
+        "documentId": {
+          "__rl": true,
+          "value": "1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY",
+          "mode": "list",
+          "cachedResultName": "Sage Leather",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hlqP4izRyz8G-lZ1Ipz_3KwZ9NzzcsPHCxIhzYeeHKY/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        2256,
+        896
+      ],
+      "id": "de070c08-f549-4f95-8f93-5c39f0f14c95",
+      "name": "Pricing",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3kfKCFcO7JLTBZ67",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "Sage Leather",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Seage Leather Data",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Seage Leather Data",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audio download": {
+      "main": [
+        [
+          {
+            "node": "Voice Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Audio download",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Image download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribe a recording1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze an image": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "retrieve_sage_leather_info",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "retrieve_sage_leather_info": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image download": {
+      "main": [
+        [
+          {
+            "node": "Image Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Voice Request": {
+      "main": [
+        [
+          {
+            "node": "Transcribe a recording1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image Request1": {
+      "main": [
+        [
+          {
+            "node": "Analyze an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sage Leather": {
+      "main": [
+        [
+          {
+            "node": "Seage Leather Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pricing": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "026dd320-d982-4341-b95c-f81e273e2cf5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9048002ed8c278fe42e5be2cfc7d975726bfe6802a9b7d175c96793befad56a3"
+  },
+  "id": "9dVLL25Kx38o3Wof",
+  "tags": []
+}

@@ -1,0 +1,910 @@
+{
+  "name": "Email Autumation Vornexia4",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -160,
+        128
+      ],
+      "id": "efe479f2-3ef2-41ac-80c2-2676f88693a3",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM",
+          "mode": "list",
+          "cachedResultName": "ROOFERS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": []
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        64,
+        128
+      ],
+      "id": "31b35710-5730-4087-b8f9-36a6854dedb8",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "500ec615-144f-49dc-a8fd-942f14bfb8e0",
+              "leftValue": "={{ $json.Status }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        288,
+        128
+      ],
+      "id": "0c07ab87-1f58-405d-acc2-ba78d5610d37",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        512,
+        112
+      ],
+      "id": "5e9e7f09-7fa5-464a-b12e-e90663852663",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Gmail }}",
+        "subject": "={{ $('If').item.json.Name}} are roofing enquiries slipping through the cracks?\n",
+        "emailType": "text",
+        "message": "=Hi {{ $('If').item.json.Name }}  \n\nWhen a roofing enquiry comes in and nobody follows up quickly, that homeowner moves on to the next roofer. The lead was there but it was not converted, and every unconverted lead is direct revenue walking out the door. \n\nI built an AI system that follows up with every enquiry instantly, qualifies the lead, and books the appointment automatically so that does not happen.  \n\nI have a demo ready if you want to see it.  \n\nAhmad \nVornexia",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        736,
+        -48
+      ],
+      "id": "9b398df8-4f98-41d9-9208-b0f9af012de8",
+      "name": "Send a message",
+      "webhookId": "d35763f9-9da3-4e78-b249-078183da5160",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Xm6QANx1Lv72h5Gh",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        368
+      ],
+      "id": "a71b3be6-ee19-444f-a457-7e3eb4dfe261",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM",
+          "mode": "list",
+          "cachedResultName": "ROOFERS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1338448885,
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit#gid=1338448885"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        48,
+        368
+      ],
+      "id": "26fc6de2-ae97-4ad1-8de2-c2d8a90a66c5",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "thread",
+        "operation": "reply",
+        "threadId": "={{ $json.ID }}",
+        "messageId": "={{ $json.ID }}",
+        "message": "=Hi {{ $json.Name }}\n\nThe way the system works is simple. The moment an enquiry comes in, the AI responds instantly, figures out what kind of job it is, and books the appointment automatically.\n\nIf it is something urgent like a leak or storm damage, you get flagged straight away. Everything else gets followed up automatically until the customer either books or goes cold.\n\nNo missed enquiries. No manual chasing. Just booked jobs.\n\nI built this for a roofing company in the UK and it runs 24/7 without any effort on their end.\n\nWant me to show you how it would work for your business?\n\nAhmad\nVornexia",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        384
+      ],
+      "id": "d7e7b69e-a464-46ed-86d4-6ee8cd8955b4",
+      "name": "Reply to a message",
+      "webhookId": "616f60e8-5c05-4e8a-913e-418082319556",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Xm6QANx1Lv72h5Gh",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "0c819f2b-4b41-495d-9abf-0de63e7bdf66",
+                    "leftValue": "={{ $('Get row(s) in sheet').item.json.Country }}",
+                    "rightValue": "USA",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "620469ef-a816-4bc5-a20f-02f7c5ec8ff6",
+                    "leftValue": "={{ $('Get row(s) in sheet').item.json.Country }}",
+                    "rightValue": "UK",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "782f6f47-8fc6-4433-a1bf-cd313a2e8b7e",
+                    "leftValue": "={{ $('Get row(s) in sheet').item.json.Country }}",
+                    "rightValue": "AU",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        960,
+        -64
+      ],
+      "id": "627f61f6-3173-47bf-828a-6da591ebc847",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1488,
+        32
+      ],
+      "id": "4e2933e2-730c-4c53-b9a2-69bcf879843f",
+      "name": "Wait",
+      "webhookId": "7f98aaeb-9dfc-47ac-b589-d254174b8acb"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM",
+          "mode": "list",
+          "cachedResultName": "ROOFERS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1507462640,
+          "mode": "list",
+          "cachedResultName": "USA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit#gid=1507462640"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('Get row(s) in sheet').item.json.Name }}",
+            "Gmail": "={{ $('Get row(s) in sheet').item.json.Gmail }}",
+            "Website": "={{ $('Get row(s) in sheet').item.json.Website }}",
+            "Country": "={{ $('Get row(s) in sheet').item.json.Country }}",
+            "City": "={{ $('Get row(s) in sheet').item.json.City }}",
+            "ID": "={{ $json.id }}",
+            "Status": "={{ $json.labelIds[0] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Gmail",
+              "displayName": "Gmail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1184,
+        -240
+      ],
+      "id": "80215d82-239c-4314-aea1-cad640a706fd",
+      "name": "USA Leads",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM",
+          "mode": "list",
+          "cachedResultName": "ROOFERS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 335011229,
+          "mode": "list",
+          "cachedResultName": "UK",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit#gid=335011229"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('Get row(s) in sheet').item.json.Name }}",
+            "Gmail": "={{ $('Get row(s) in sheet').item.json.Gmail }}",
+            "Website": "={{ $('Get row(s) in sheet').item.json.Website }}",
+            "Country": "={{ $('Get row(s) in sheet').item.json.Country }}",
+            "City": "={{ $('Get row(s) in sheet').item.json.City }}",
+            "ID": "={{ $json.id }}",
+            "Status": "={{ $json.labelIds[0] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Gmail",
+              "displayName": "Gmail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "F1",
+              "displayName": "F1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "F2",
+              "displayName": "F2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "F3",
+              "displayName": "F3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "F4",
+              "displayName": "F4",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1184,
+        -48
+      ],
+      "id": "f55f0dc7-a97e-4ef2-b3f3-6183d160758f",
+      "name": "UK Leads",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM",
+          "mode": "list",
+          "cachedResultName": "ROOFERS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 707849212,
+          "mode": "list",
+          "cachedResultName": "AU",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit#gid=707849212"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "={{ $('Send a message').item.json.labelIds[0] }}",
+            "ID": "={{ $('Send a message').item.json.id }}",
+            "Name": "={{ $('Loop Over Items').item.json.Name }}",
+            "Gmail": "={{ $('Loop Over Items').item.json.Gmail }}",
+            "Website": "={{ $('Loop Over Items').item.json.Website }}",
+            "Country": "={{ $('Loop Over Items').item.json.Country }}",
+            "City": "={{ $('Loop Over Items').item.json.City }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Gmail",
+              "displayName": "Gmail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1184,
+        144
+      ],
+      "id": "9e932e31-6439-44c9-b713-676e844717d8",
+      "name": "AU leads",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        256,
+        368
+      ],
+      "id": "0d8defb9-ab23-4f0d-b89e-39a4ccdd5630",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        976,
+        384
+      ],
+      "id": "f858964c-0336-418e-b71c-edd16bbfac15",
+      "name": "Wait1",
+      "webhookId": "e0b771bc-6562-4e3d-8ed7-5b6b296d0695"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "USA Leads",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "UK Leads",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AU leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "USA Leads": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UK Leads": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AU leads": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Reply to a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply to a message": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "0c24a181-6e1b-46ea-b5af-3e602facb817",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "637d1f9f810a7cfbae65c1a3d445719fbb8567db1fc41d1cc5076ac24bf1e550"
+  },
+  "nodeGroups": [],
+  "id": "Uu9ol9dMXUyzjn3d",
+  "tags": []
+}

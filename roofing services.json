@@ -1,0 +1,1954 @@
+{
+  "name": "roofing services",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "=Chatbot",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -2208,
+        176
+      ],
+      "id": "7938f97a-57ef-459e-b2b9-294cc736c0b3",
+      "name": "Chatbot",
+      "webhookId": "63bac375-ba0e-4c41-918f-34548148ed71"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "appointandcontactus",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -2320,
+        624
+      ],
+      "id": "9406240e-f50f-4d1d-a1be-49751886820e",
+      "name": "appointandcontactus",
+      "webhookId": "893d5300-f7dc-4aa7-a755-c4084416c5d2"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.type }}",
+                    "rightValue": "appointment",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "9e01dc0b-319a-4131-9a32-d6552853eb75"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "e533f042-fa13-466d-8cff-111d9b9a2461",
+                    "leftValue": "={{ $json.body.type }}",
+                    "rightValue": "contact",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -2112,
+        624
+      ],
+      "id": "e2eb8b3b-6190-4fe7-8fae-f3ba667cbfb7",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "You are the expert, professional, and friendly AI Lead Conversion Assistant for Leicestershire Roofing Services Ltd (LRS). Your primary objective is to engage website visitors, answer their queries with precision, build absolute trust, and confidently guide them to book a free inspection or submit their contact details.\n\n### BRAND PROFILE & BACKGROUND:\n- Company Name: Leicestershire Roofing Services Ltd (LRS)\n- Director & Founder: Michael Claricoates (Over 17+ years of elite, hands-on roofing experience).\n- Reputation: A highly respected, family-led local business built on trust, premium craftsmanship, and local pride. Backed by over 161+ five-star reviews from local homeowners. Fully insured, CSCS Blue Card certified, and Armourplan Single Ply certified.\n- Operational Hours: Open 24 Hours, 7 Days a week for emergencies and rapid storm damage callouts.\n\n### CORE SERVICES & EXPERTISE (Use these exact technical terms to demonstrate authority):\n1. New Roof Installations: High-quality pitched and flat roofing solutions using premium concrete tiles, new high-performance membranes, and standard batten systems.\n2. Slate Roofing Specialists: Advanced expertise in supplying and installing First-Grade Spanish Slates and premium traditional Welsh slates.\n3. Flat Roofs & Membranes: PVC membrane flat roofs, single-ply roofing installations, and high-performance roof coatings.\n4. Skylights & Loft Conversions: Expert installation of large architectural skylights and electric/automated opening Velux windows to maximize loft space lighting.\n5. Maintenance & Repairs: Chimney removal, chimney repointing, lead flashing/coping details, uPVC guttering replacement (including premium black uPVC), aluminium guttering, storm damage repair, and energy-efficient roof insulation.\n\n### SERVICE LOCATIONS & TARGET AREAS:\n- Core Regions: Greater Leicester, Leicestershire, and the wider East Midlands area.\n- Key Local Areas (Casually mention these to build local trust): Oadby (famous for LRS's high-quality slated turret project!), Western Park, Glenfield (Headquarters located at: 128 Glenfield Frith Dr, Glenfield, Leicester LE3 8PT), Anstey, Birstall, Leicester Forest East, Countesthorpe, and Syston.\n\n### CHATBOT PERSONALITY & BEHAVIORAL RULES:\n1. Tone: Professional, authoritative, highly polite, and distinctly British (use terms like \"roofing craftsmanship\", \"happy customers\", \"bespoke solutions\").\n2. Language: Speak exclusively in clear, professional British English.\n3. Value-First Hook: Never sound sales-heavy or desperate. Always remind users that LRS offers a \"100% Free, no-obligation written quote with completely transparent pricing and absolutely NO hidden extras.\"\n4. Transparency Advantage: Highlight that during any project, Michael and the team provide \"Daily photo and video updates so the homeowner knows exactly what is happening on their roof every single step of the way.\"\n5. Conciseness: Keep responses short, conversational, and direct (maximum 2-3 sentences per turn). Avoid overwhelming the user with heavy blocks of text.\n\n### THE ULTIMATE GOAL (Lead Capture & Conversion):\nYour primary objective is to qualify the user and capture their contact information for a site visit.\n- If the user inquires about pricing, request a quote, or mentions a roof issue/leak, respond: \"Michael or one of our roofing specialists can arrange a quick site visit to provide a comprehensive, 100% free written quote within 24 hours. What is your property postcode and the best phone number for the team to reach you?\"\n- Once they provide their details, confirm professionally: \"Thank you. Michael or a member of the LRS team will call or text you shortly to finalize the time.\"\n\n### CRITICAL GUARDRAILS:\n- Do NOT invent specific financial estimates, pricing structures, or repair cost numbers. Always state that an on-site evaluation by Michael is required for an accurate quote.\n- If a live roof leak or storm emergency is brought up, immediately emphasize our \"24/7 Rapid Response Storm Damage Team\" to drive urgency."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -2000,
+        176
+      ],
+      "id": "deef94cd-0f89-47fb-92dc-a37074124f85",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -2096,
+        400
+      ],
+      "id": "02292839-fb99-400f-b4c6-8590258e8443",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "JAoJRLE1f9eKxptt",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -1648,
+        112
+      ],
+      "id": "249107e9-4c32-4ec5-80ab-bf5f43418711",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM",
+          "mode": "list",
+          "cachedResultName": "Leicestershire Roofing Services Ltd",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Chat Bot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Bot reply": "={{ $json.output }}",
+            "User messgae": "={{ $('Chatbot').item.json.body.message }}",
+            "Useer ID": "={{ $('Chatbot').item.json.body.sessionId }}"
+          },
+          "matchingColumns": [
+            "Useer ID"
+          ],
+          "schema": [
+            {
+              "id": "Useer ID",
+              "displayName": "Useer ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "User messgae",
+              "displayName": "User messgae",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Bot reply",
+              "displayName": "Bot reply",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1680,
+        304
+      ],
+      "id": "f80df41f-57e2-4f3b-9d33-0713fba6ba29",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.body.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        -1936,
+        400
+      ],
+      "id": "d6849971-a67b-414c-817b-58f81ed0a8d1",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0228fd37-5290-403b-8fb2-d2fff1f6ac6b",
+              "name": "body.submittedAt",
+              "value": "={{ $json.body.submittedAt }}",
+              "type": "string"
+            },
+            {
+              "id": "130d2e81-92bd-4b17-b2cc-b94626791ea5",
+              "name": "body.fullName",
+              "value": "={{ $json.body.fullName }}",
+              "type": "string"
+            },
+            {
+              "id": "6e76ec1d-f693-4782-9449-90416e6a814b",
+              "name": "body.phone",
+              "value": "={{ $json.body.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "1e21b9fe-e0b1-4eda-b31d-3d6e5792d30f",
+              "name": "body.email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "fb13bff9-d416-4763-bdef-7a01d73efb2e",
+              "name": "body.address",
+              "value": "={{ $json.body.address }}",
+              "type": "string"
+            },
+            {
+              "id": "8434b1d4-6f51-4347-b31f-dba5a0968e9f",
+              "name": "body.service",
+              "value": "={{ $json.body.service }}",
+              "type": "string"
+            },
+            {
+              "id": "4d5d436e-2997-4c1e-a746-cfa04b526b85",
+              "name": "body.date",
+              "value": "={{ $json.body.date }}",
+              "type": "string"
+            },
+            {
+              "id": "66cd1615-eea2-4232-9c2f-d18c60be01ca",
+              "name": "body.time",
+              "value": "={{ $json.body.time }}",
+              "type": "string"
+            },
+            {
+              "id": "1684ba43-49bf-44eb-8fcf-ea5716326b96",
+              "name": "body.details",
+              "value": "={{ $json.body.details }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1888,
+        608
+      ],
+      "id": "92bedcb2-9da0-49c7-a119-ccda38621b72",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM",
+          "mode": "list",
+          "cachedResultName": "Leicestershire Roofing Services Ltd",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 784248951,
+          "mode": "list",
+          "cachedResultName": "Appointment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit#gid=784248951"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Email",
+              "lookupValue": "={{ $json.body.email }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1664,
+        608
+      ],
+      "id": "5c4ce1e3-c1ed-420b-bbc4-cf0526c15f9a",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "877e58de-68d9-4920-97c0-b01b3973c9d9",
+              "leftValue": "={{ $json.Email }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1456,
+        608
+      ],
+      "id": "a0482067-d741-451e-9b2d-4c9b14204e98",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM",
+          "mode": "list",
+          "cachedResultName": "Leicestershire Roofing Services Ltd",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 784248951,
+          "mode": "list",
+          "cachedResultName": "Appointment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit#gid=784248951"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $('Edit Fields').item.json.body.email }}",
+            "Name": "={{ $('Edit Fields').item.json.body.fullName }}",
+            "Time": "={{ $('Edit Fields').item.json.body.time }}",
+            "Service Type": "={{ $('Edit Fields').item.json.body.service }}",
+            "Details": "={{ $('Edit Fields').item.json.body.details }}",
+            "Phone": "={{ $('Edit Fields').item.json.body.phone }}",
+            "Home Adress": "={{ $('Edit Fields').item.json.body.address }}",
+            "Appointment Date": "={{ $('Edit Fields').item.json.body.date }}",
+            "Submitted form date": "={{ $('Edit Fields').item.json.body.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Home Adress",
+              "displayName": "Home Adress",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Service Type",
+              "displayName": "Service Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Details",
+              "displayName": "Details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Submitted form date",
+              "displayName": "Submitted form date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Appointment Date",
+              "displayName": "Appointment Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1200,
+        560
+      ],
+      "id": "93d7c04c-3033-419c-9c04-2e9aac680fc1",
+      "name": "New Leads",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3456aa10-e465-40c0-8830-ada3d5d29c95",
+              "leftValue": "={{ $json['Service Type'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1008,
+        240
+      ],
+      "id": "f0dd56e4-b03b-4c5c-b9c4-304395a38e83",
+      "name": "If1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -816,
+        352
+      ],
+      "id": "cf9e053e-5ce4-4060-b406-e539d4043444",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM",
+          "mode": "list",
+          "cachedResultName": "Leicestershire Roofing Services Ltd",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 784248951,
+          "mode": "list",
+          "cachedResultName": "Appointment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit#gid=784248951"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Service Type",
+              "lookupValue": "={{ $('Edit Fields').item.json.body.service }}"
+            },
+            {
+              "lookupColumn": "Email",
+              "lookupValue": "={{ $json.Email }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1200,
+        240
+      ],
+      "id": "a71c4051-02dc-4dec-8c54-b0d96ffb8111",
+      "name": "Check Service",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Email:  {{ $json.Email }}\nName: {{ $json.Name }}\nDeatail: {{ $json.Details }}\nService: {{ $json['Service Type'] }}\nPhone: {{ $json.Phone }}\nAdress: {{ $json['Home Adress'] }}\nDate: {{ $json['Appointment Date'] }}",
+        "options": {
+          "systemMessage": "=You are an expert AI Lead Analyst and Communications Manager for \"Leicestershire Roofing Services Ltd\", owned by Michael Claricoates. \nYour job is to analyze incoming form submissions from OLD/RETURNING clients who have submitted a request for a NEW service, score the lead, and draft tailored emails.\n\nAnalyze the following incoming data:\n- Name: {{ $json.Name }}\n- Email: {{ $json.Email }}\n- Phone: {{ $json.Phone }}\n- Address: {{ $json['Home Adress'] }}\n- Service Requested: {{ $json['Service Type'] }}\n- Details: {{ $json.Details }}\n- Date/Time: {{ $json['Appointment Date'] }}\n\n### Lead Scoring Rules:\n1. HOT LEAD: If the Service Requested is \"Emergency Roofing\", \"Leaking Roof Repair\", or \"Storm Damage Repair\" AND the user mentions urgent issues in Details (e.g., water leaking, storm damage, active leak). These need immediate response within the hour.\n2. WARM LEAD: If the Service Requested is \"New Roof Installation\", \"Guttering Replacement\", \"Chimney Removal & Repair\", \"Tile Replacement\", \"Improved Insulation\", or \"Roof Maintenance\" with general details.\n3. COLD LEAD: If the details are spam, incomplete, test data, or irrelevant.\n\n### Email Drafting Rules (Strictly for Returning/Old Clients):\n1. Customer Email: Write a professional, warm, and personalized email. Acknowledge that they are a returning customer (e.g., \"Welcome back\", \"Great to hear from you again\"). Mention their specific service type, address, and their raw details/notes. Keep Michael's contact info (+44 7572 133999) as the call to action, especially if it's a Hot lead.\n2. Owner Email: Write a notification email for Michael Claricoates. Clearly state that a returning client has requested a new service. Include the lead rating, client info, and their urgent/specific requirements so Michael can call them back instantly.\n\n### Your Output Requirement:\nYou must output ONLY a valid, clean JSON object. Do not include any markdown formatting like ```json or any conversational text. Use the exact following JSON structure:\n\n{\n  \"lead_rating\": \"Hot/Warm/Cold\",\n  \"reasoning\": \"Brief explanation of the rating based on urgency\",\n  \"customer_email_subject\": \"Subject line for the customer email\",\n  \"customer_email_body\": \"Full body text for the customer email\",\n  \"owner_email_subject\": \"Subject line for Michael's email\",\n  \"owner_email_body\": \"Full body text for Michael's email\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -544,
+        144
+      ],
+      "id": "19b6f115-c74b-48ac-988a-9d150529f195",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -624,
+        352
+      ],
+      "id": "a3e9bc97-c952-4b48-ab95-cd5195ca07a9",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "JAoJRLE1f9eKxptt",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. AI node se aane wale data ko uthein\nlet rawData = items[0].json; \n\n// 2. Agar data pehle se string form mein hai ya kisi key ke andar band hai, usko nikalen\n// फर्ज karen agar output direct text mein hai ya output key mein hai:\nlet jsonString = rawData.output || rawData.text || rawData;\n\n// Agar input direct object nahi hai to usko pure JSON object mein convert karen\nif (typeof jsonString === 'string') {\n    try {\n        // Agar markdown backticks (```json) lage hon to unhe saaf karen\n        jsonString = jsonString.replace(/```json|```/g, '').trim();\n        rawData = JSON.parse(jsonString);\n    } catch (e) {\n        // Agar parse na ho sake to error se bachne ke liye original hi rakhen\n    }\n} else {\n    rawData = jsonString;\n}\n\n// 3. Email bodies ke andar se \"\\n\" ko asli clear text aur neat formatting mein convert karen\nreturn [\n  {\n    json: {\n      lead_rating: rawData.lead_rating,\n      reasoning: rawData.reasoning,\n      customer_email_subject: rawData.customer_email_subject,\n      // Isse line breaks bilkul neat text mein convert ho jayenge\n      customer_email_body: rawData.customer_email_body ? rawData.customer_email_body.replace(/\\\\n/g, '\\n') : '',\n      owner_email_subject: rawData.owner_email_subject,\n      owner_email_body: rawData.owner_email_body ? rawData.owner_email_body.replace(/\\\\n/g, '\\n') : ''\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        144
+      ],
+      "id": "c120751a-51b2-4039-a93a-b23061a858c7",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39cafc69-1ca6-43de-918c-73d5bf4d341a",
+              "name": "Suject",
+              "value": "={{ $json.customer_email_subject }}",
+              "type": "string"
+            },
+            {
+              "id": "d50233d5-b1be-4118-8a49-eb3632dd43da",
+              "name": "Email",
+              "value": "={{ $json.customer_email_body }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "10ae360a-5459-483b-9210-c5ee968e90cd",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d91b1370-f621-4f48-bebe-7d6e066f09cd",
+              "name": "owner_email_subject",
+              "value": "={{ $json.owner_email_subject }}",
+              "type": "string"
+            },
+            {
+              "id": "52c427cb-db2c-41ef-a754-838a322fce2d",
+              "name": "owner_email_body",
+              "value": "={{ $json.owner_email_body }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        256
+      ],
+      "id": "20f1f1be-4b87-455f-8cd8-58b6ddad0c9f",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Old lead but New Service').item.json.Email }}",
+        "subject": "={{ $json.Suject }}",
+        "emailType": "text",
+        "message": "={{ $json.Email }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "2743030b-66b2-495d-a843-b4b8b96f06ec",
+      "name": "Client Message",
+      "webhookId": "f893c7df-1bed-4e1a-8c34-129124ea6505",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Xm6QANx1Lv72h5Gh",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Old lead but New Service').item.json.Email }}",
+        "subject": "={{ $json.owner_email_subject }}",
+        "emailType": "text",
+        "message": "={{ $json.owner_email_body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        192,
+        432
+      ],
+      "id": "737b3a8c-ec45-4890-9e96-cdc9c649b29f",
+      "name": "Send a message",
+      "webhookId": "3663c3f7-a19f-44c3-80be-81a45f3a1552",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Xm6QANx1Lv72h5Gh",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM",
+          "mode": "list",
+          "cachedResultName": "Leicestershire Roofing Services Ltd",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 784248951,
+          "mode": "list",
+          "cachedResultName": "Appointment",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit#gid=784248951"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $('Edit Fields').item.json.body.email }}",
+            "Name": "={{ $('Edit Fields').item.json.body.fullName }}",
+            "Time": "={{ $('Edit Fields').item.json.body.time }}",
+            "Service Type": "={{ $('Edit Fields').item.json.body.service }}",
+            "Details": "={{ $('Edit Fields').item.json.body.details }}",
+            "Phone": "={{ $('Edit Fields').item.json.body.phone }}",
+            "Home Adress": "={{ $('Edit Fields').item.json.body.address }}",
+            "Appointment Date": "={{ $('Edit Fields').item.json.body.date }}",
+            "Submitted form date": "={{ $('Edit Fields').item.json.body.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Home Adress",
+              "displayName": "Home Adress",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Service Type",
+              "displayName": "Service Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Details",
+              "displayName": "Details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Submitted form date",
+              "displayName": "Submitted form date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Appointment Date",
+              "displayName": "Appointment Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -800,
+        144
+      ],
+      "id": "ef06f4d9-d5ce-447b-abc7-cdca10ce7b38",
+      "name": "Old lead but New Service",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an expert AI Lead Analyst and Communications Manager for \"Leicestershire Roofing Services Ltd\", owned by Michael Claricoates. \nYour job is to analyze incoming form submissions from BRAND NEW potential clients who have just contacted us for the first time, score the lead, and draft tailored emails.\n\nAnalyze the following incoming data:\n- Name: {{ $json.Name }}\n- Email: {{ $json.Email }}\n- Phone: {{ $json.Phone }}\n- Address: {{ $json['Home Adress'] }}\n- Service Requested: {{ $json['Service Type'] }}\n- Details: {{ $json.Details }}\n- Date/Time: {{ $json['Appointment Date'] }}\n\n### Lead Scoring Rules:\n1. HOT LEAD: If the Service Requested is \"Emergency Roofing\", \"Leaking Roof Repair\", or \"Storm Damage Repair\" OR if the details mention urgent issues (e.g., active leak, roof caving, storm damage). These require immediate attention.\n2. WARM LEAD: If the Service Requested is \"New Roof Installation\", \"Guttering Replacement\", \"Chimney Removal & Repair\", \"Tile Replacement\", \"Improved Insulation\", or \"Roof Maintenance\" with routine/standard requests.\n3. COLD LEAD: If the submission contains spam, gibberish, or test data.\n\n### Email Drafting Rules (Strictly for Brand New Clients):\n1. Customer Email: Write a professional, highly welcoming, and trust-building email. Acknowledge that they are contacting us for the first time (e.g., \"Thank you for reaching out to us\", \"Welcome to Leicestershire Roofing Services\"). Mention their specific service type, address, and notes. Highlight our key features to build trust: family-led local team based in Glenfield, 4.9/5 Google rated, and providing daily photo updates. Keep Michael's contact info (+44 7572 133999) as the 24/7 emergency call to action.\n2. Owner Email: Write an alert notification email for Michael Claricoates. State clearly that a BRAND NEW lead has submitted a form. Include the lead rating, client contact info, and their requirements so Michael can follow up immediately before they look for other options.\n\n### Your Output Requirement:\nYou must output ONLY a valid, clean JSON object. Do not include any markdown formatting like ```json or any conversational text. Use the exact following JSON structure:\n\n{\n  \"lead_rating\": \"Hot/Warm/Cold\",\n  \"reasoning\": \"Brief explanation of the rating based on service urgency for a new customer\",\n  \"customer_email_subject\": \"Subject line for the customer welcome email\",\n  \"customer_email_body\": \"Full body text for the customer welcome email\",\n  \"owner_email_subject\": \"Subject line for Michael's new lead email\",\n  \"owner_email_body\": \"Full body text for Michael's new lead email\"\n}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -944,
+        592
+      ],
+      "id": "373d3ce2-42bf-41f6-8f6d-e07b69915f59",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -1040,
+        800
+      ],
+      "id": "0a307452-ab8a-49c2-a837-ab982f3c5a6f",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "JAoJRLE1f9eKxptt",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. AI node se aane wale data ko uthein\nlet rawData = items[0].json; \n\n// 2. Agar data pehle se string form mein hai ya kisi key ke andar band hai, usko nikalen\n// फर्ज karen agar output direct text mein hai ya output key mein hai:\nlet jsonString = rawData.output || rawData.text || rawData;\n\n// Agar input direct object nahi hai to usko pure JSON object mein convert karen\nif (typeof jsonString === 'string') {\n    try {\n        // Agar markdown backticks (```json) lage hon to unhe saaf karen\n        jsonString = jsonString.replace(/```json|```/g, '').trim();\n        rawData = JSON.parse(jsonString);\n    } catch (e) {\n        // Agar parse na ho sake to error se bachne ke liye original hi rakhen\n    }\n} else {\n    rawData = jsonString;\n}\n\n// 3. Email bodies ke andar se \"\\n\" ko asli clear text aur neat formatting mein convert karen\nreturn [\n  {\n    json: {\n      lead_rating: rawData.lead_rating,\n      reasoning: rawData.reasoning,\n      customer_email_subject: rawData.customer_email_subject,\n      // Isse line breaks bilkul neat text mein convert ho jayenge\n      customer_email_body: rawData.customer_email_body ? rawData.customer_email_body.replace(/\\\\n/g, '\\n') : '',\n      owner_email_subject: rawData.owner_email_subject,\n      owner_email_body: rawData.owner_email_body ? rawData.owner_email_body.replace(/\\\\n/g, '\\n') : ''\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        624
+      ],
+      "id": "2f2da9d1-9151-42ce-a170-07cb621ee400",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39cafc69-1ca6-43de-918c-73d5bf4d341a",
+              "name": "Suject",
+              "value": "={{ $json.customer_email_subject }}",
+              "type": "string"
+            },
+            {
+              "id": "d50233d5-b1be-4118-8a49-eb3632dd43da",
+              "name": "Email",
+              "value": "={{ $json.customer_email_body }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -304,
+        480
+      ],
+      "id": "76700b2c-1047-4a1c-8abc-a140530021cb",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d91b1370-f621-4f48-bebe-7d6e066f09cd",
+              "name": "owner_email_subject",
+              "value": "={{ $json.owner_email_subject }}",
+              "type": "string"
+            },
+            {
+              "id": "52c427cb-db2c-41ef-a754-838a322fce2d",
+              "name": "owner_email_body",
+              "value": "={{ $json.owner_email_body }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -304,
+        736
+      ],
+      "id": "83bb8ea1-aae8-445b-9de3-d39b0f5fd6d3",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('New Leads').item.json.Email }}",
+        "subject": "={{ $json.Suject }}",
+        "emailType": "text",
+        "message": "={{ $json.Email }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        480
+      ],
+      "id": "080b8e00-4204-4643-911b-97cc7a075f79",
+      "name": "Client Message1",
+      "webhookId": "f893c7df-1bed-4e1a-8c34-129124ea6505",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Xm6QANx1Lv72h5Gh",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('New Leads').item.json.Email }}",
+        "subject": "={{ $json.owner_email_subject }}",
+        "emailType": "text",
+        "message": "={{ $json.owner_email_body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        736
+      ],
+      "id": "90a51955-f4a4-4a3b-96d6-b8499ee515e7",
+      "name": "Send a message1",
+      "webhookId": "3663c3f7-a19f-44c3-80be-81a45f3a1552",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Xm6QANx1Lv72h5Gh",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM",
+          "mode": "list",
+          "cachedResultName": "Leicestershire Roofing Services Ltd",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 384229497,
+          "mode": "list",
+          "cachedResultName": "Contact us",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit#gid=384229497"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.body.name }}",
+            "Phone ": "={{ $json.body.phone }}",
+            "Email": "={{ $json.body.email }}",
+            "Message": "={{ $json.body.message }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone ",
+              "displayName": "Phone ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1856,
+        1008
+      ],
+      "id": "f311fee2-33a0-47c3-8d91-35d03bc20106",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Omnichannel Communications Manager for \"Leicestershire Roofing Services Ltd\", owned by Michael Claricoates. \nYour job is to analyze incoming messages from the website's generic Contact Us form, automatically detect the intent/tone of the message, score the lead, and draft the perfect contextual response.\n\nAnalyze the following incoming data:\n- Name: {{ $json.Name }}\n- Phone: {{ $json['Phone '] }}\n- Email: {{ $json.Email }}\n- Message: {{ $json.Message }}\n\n### Intent Detection & Processing Rules:\n\n1. IF THE INTENT IS A NEW SERVICE QUERY / LEAD:\n   - Lead Rating: Hot (if urgent like leaks/damage) or Warm (general maintenance/quotes).\n   - Customer Email Tone: Professional, welcoming, and reassuring. Acknowledge their problem, highlight company trust factors (Glenfield local team, 4.9/5 Google rating), and offer a quick call or visit booking.\n   \n2. IF THE INTENT IS A COMPLIMENT / POSITIVE FEEDBACK:\n   - Lead Rating: Warm (Excellent opportunity for a review generation or future upsell).\n   - Customer Email Tone: Extremely grateful, enthusiastic, and warm. Thank them sincerely on behalf of Michael and the team, and politely drop a link or invite them to leave a quick Google Review.\n\n3. IF THE INTENT IS A COMPLAINT / ISSUE:\n   - Lead Rating: Hot (Needs immediate service recovery).\n   - Customer Email Tone: Deeply empathetic, polite, apologetic, and urgent. Never be defensive. Acknowledge the issue instantly, and state that Michael Claricoates is looking into this personally and will call them on their phone number within the next 2 hours to resolve it.\n\n4. IF THE INTENT IS SPAM / TEST / MARKETING INBOUND:\n   - Lead Rating: Cold.\n   - Output Handling: Keep reasoning brief (\"Spam/B2B Pitch detected\") and leave email subjects/bodies blank or generic.\n\n### Email Drafting Instructions:\n- Call to Action: For any valid service query or complaint, always drive them to Michael's business phone (+44 7572 133999).\n- Personalization: Address them by their Name. Keep the formatting completely natural with clear line breaks (no AI clichés or rigid templates).\n\n### Your Output Requirement:\nYou must output ONLY a valid, clean JSON object. Do not include any markdown formatting like ```json or conversational text. Use the exact following JSON structure:\n\n{\n  \"detected_intent\": \"Service Query / Compliment / Complaint / Spam\",\n  \"lead_rating\": \"Hot/Warm/Cold\",\n  \"reasoning\": \"Brief explanation of detected intent and urgency\",\n  \"customer_email_subject\": \"Contextual subject line based on intent\",\n  \"customer_email_body\": \"Full personalized body text based on intent\",\n  \"owner_email_subject\": \"Alert for Michael: [Intent Type] from [Name]\",\n  \"owner_email_body\": \"Full body text notifying Michael of the message, contact info, and what action he needs to take.\"\n}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1648,
+        1008
+      ],
+      "id": "344a2550-b7ef-48ea-9d33-dd8f65fe8562",
+      "name": "AI Agent3"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -1792,
+        1216
+      ],
+      "id": "d779de9d-6552-4d2a-b280-c9a25f986419",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "JAoJRLE1f9eKxptt",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n native input standard to fix ReferenceError\nreturn $input.all().map(item => {\n  let rawData = item.json;\n  \n  // AI Agent node ka output string format mein 'output' ya 'text' key ke andar aata hai\n  let jsonString = rawData.output || rawData.text || rawData;\n\n  if (typeof jsonString === 'string') {\n      try {\n          // Agar markdown text (```json ...) laga ho to use clean karen\n          jsonString = jsonString.replace(/```json|```/g, '').trim();\n          rawData = JSON.parse(jsonString);\n      } catch (e) {\n          // Fallback agar handle na ho sake\n      }\n  } else {\n      rawData = jsonString;\n  }\n\n  return {\n    json: {\n      detected_intent: rawData.detected_intent || \"Service Query\",\n      lead_rating: rawData.lead_rating || \"Warm\",\n      reasoning: rawData.reasoning || \"\",\n      customer_email_subject: rawData.customer_email_subject || \"Thank you for contacting us\",\n      \n      // Email body se '\\\\n' aur '\\n' ko clean kar ke asli lines mein convert karna\n      customer_email_body: rawData.customer_email_body ? rawData.customer_email_body.replace(/\\\\n/g, '\\n') : '',\n      \n      owner_email_subject: rawData.owner_email_subject || \"New Web Inquiry\",\n      owner_email_body: rawData.owner_email_body ? rawData.owner_email_body.replace(/\\\\n/g, '\\n') : ''\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1216,
+        1040
+      ],
+      "id": "6edab046-d5be-451b-b603-2b951aa893f4",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39cafc69-1ca6-43de-918c-73d5bf4d341a",
+              "name": "Suject",
+              "value": "={{ $json.customer_email_subject }}",
+              "type": "string"
+            },
+            {
+              "id": "d50233d5-b1be-4118-8a49-eb3632dd43da",
+              "name": "Email",
+              "value": "={{ $json.customer_email_body }}",
+              "type": "string"
+            },
+            {
+              "id": "84a933d2-cc8f-4c00-a098-4ba592d37aa7",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -784,
+        928
+      ],
+      "id": "ae085e5a-3a11-4a35-bf5d-18a4a120a65f",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d91b1370-f621-4f48-bebe-7d6e066f09cd",
+              "name": "owner_email_subject",
+              "value": "={{ $json.owner_email_subject }}",
+              "type": "string"
+            },
+            {
+              "id": "52c427cb-db2c-41ef-a754-838a322fce2d",
+              "name": "owner_email_body",
+              "value": "={{ $json.owner_email_body }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -784,
+        1184
+      ],
+      "id": "fb5e914c-3882-4da5-808e-3ebca08c53d1",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Append row in sheet').item.json.Email }}",
+        "subject": "={{ $json.Suject }}",
+        "emailType": "text",
+        "message": "={{ $json.Email }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -576,
+        928
+      ],
+      "id": "b72baa85-5311-484d-be52-5adb6319a0d2",
+      "name": "Client Message2",
+      "webhookId": "f893c7df-1bed-4e1a-8c34-129124ea6505",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Xm6QANx1Lv72h5Gh",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Append row in sheet').item.json.Email }}",
+        "subject": "={{ $json.owner_email_subject }}",
+        "emailType": "text",
+        "message": "={{ $json.owner_email_body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -576,
+        1184
+      ],
+      "id": "7eed32f5-9838-404f-a4c9-0dc9f9318c6e",
+      "name": "Send a message2",
+      "webhookId": "3663c3f7-a19f-44c3-80be-81a45f3a1552",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Xm6QANx1Lv72h5Gh",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -64,
+        1072
+      ],
+      "id": "9b94da6c-5ceb-4ef8-9caf-051d7a0b89a2",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Xm6QANx1Lv72h5Gh",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.threadId }}",
+        "options": {
+          "systemMessage": "You are the expert, professional, and friendly AI Lead Conversion Assistant for Leicestershire Roofing Services Ltd (LRS). Your primary objective is to engage website visitors, answer their queries with precision, build absolute trust, and confidently guide them to book a free inspection or submit their contact details.\n\n### BRAND PROFILE & BACKGROUND:\n- Company Name: Leicestershire Roofing Services Ltd (LRS)\n- Director & Founder: Michael Claricoates (Over 17+ years of elite, hands-on roofing experience).\n- Reputation: A highly respected, family-led local business built on trust, premium craftsmanship, and local pride. Backed by over 161+ five-star reviews from local homeowners. Fully insured, CSCS Blue Card certified, and Armourplan Single Ply certified.\n- Operational Hours: Open 24 Hours, 7 Days a week for emergencies and rapid storm damage callouts.\n\n### CORE SERVICES & EXPERTISE (Use these exact technical terms to demonstrate authority):\n1. New Roof Installations: High-quality pitched and flat roofing solutions using premium concrete tiles, new high-performance membranes, and standard batten systems.\n2. Slate Roofing Specialists: Advanced expertise in supplying and installing First-Grade Spanish Slates and premium traditional Welsh slates.\n3. Flat Roofs & Membranes: PVC membrane flat roofs, single-ply roofing installations, and high-performance roof coatings.\n4. Skylights & Loft Conversions: Expert installation of large architectural skylights and electric/automated opening Velux windows to maximize loft space lighting.\n5. Maintenance & Repairs: Chimney removal, chimney repointing, lead flashing/coping details, uPVC guttering replacement (including premium black uPVC), aluminium guttering, storm damage repair, and energy-efficient roof insulation.\n\n### SERVICE LOCATIONS & TARGET AREAS:\n- Core Regions: Greater Leicester, Leicestershire, and the wider East Midlands area.\n- Key Local Areas (Casually mention these to build local trust): Oadby (famous for LRS's high-quality slated turret project!), Western Park, Glenfield (Headquarters located at: 128 Glenfield Frith Dr, Glenfield, Leicester LE3 8PT), Anstey, Birstall, Leicester Forest East, Countesthorpe, and Syston.\n\n### CHATBOT PERSONALITY & BEHAVIORAL RULES:\n1. Tone: Professional, authoritative, highly polite, and distinctly British (use terms like \"roofing craftsmanship\", \"happy customers\", \"bespoke solutions\").\n2. Language: Speak exclusively in clear, professional British English.\n3. Value-First Hook: Never sound sales-heavy or desperate. Always remind users that LRS offers a \"100% Free, no-obligation written quote with completely transparent pricing and absolutely NO hidden extras.\"\n4. Transparency Advantage: Highlight that during any project, Michael and the team provide \"Daily photo and video updates so the homeowner knows exactly what is happening on their roof every single step of the way.\"\n5. Conciseness: Keep responses short, conversational, and direct (maximum 2-3 sentences per turn). Avoid overwhelming the user with heavy blocks of text.\n\n### THE ULTIMATE GOAL (Lead Capture & Conversion):\nYour primary objective is to qualify the user and capture their contact information for a site visit.\n- If the user inquires about pricing, request a quote, or mentions a roof issue/leak, respond: \"Michael or one of our roofing specialists can arrange a quick site visit to provide a comprehensive, 100% free written quote within 24 hours. What is your property postcode and the best phone number for the team to reach you?\"\n- Once they provide their details, confirm professionally: \"Thank you. Michael or a member of the LRS team will call or text you shortly to finalize the time.\"\n\n### CRITICAL GUARDRAILS:\n- Do NOT invent specific financial estimates, pricing structures, or repair cost numbers. Always state that an on-site evaluation by Michael is required for an accurate quote.\n- If a live roof leak or storm emergency is brought up, immediately emphasize our \"24/7 Rapid Response Storm Damage Team\" to drive urgency."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        192,
+        1072
+      ],
+      "id": "e80c8b54-c747-4ed7-b689-aa6f11bb9800",
+      "name": "AI Agent5"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        16,
+        1328
+      ],
+      "id": "7fd20067-8066-4269-b3bf-2fa6a1ee392f",
+      "name": "OpenAI Chat Model5",
+      "credentials": {
+        "openAiApi": {
+          "id": "JAoJRLE1f9eKxptt",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM",
+          "mode": "list",
+          "cachedResultName": "Leicestershire Roofing Services Ltd",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Chat Bot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hDxaZTBGsf8H0b48hm2dmCmXkKOotPbWJPoP_7ExBKM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Bot reply": "={{ $json.output }}",
+            "User messgae": "={{ $('Gmail Trigger').item.json.snippet }}",
+            "Useer ID": "={{ $('Gmail Trigger').item.json.id }}"
+          },
+          "matchingColumns": [
+            "Useer ID"
+          ],
+          "schema": [
+            {
+              "id": "Useer ID",
+              "displayName": "Useer ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "User messgae",
+              "displayName": "User messgae",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Bot reply",
+              "displayName": "Bot reply",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        496,
+        1248
+      ],
+      "id": "55ef924b-1fb9-427c-b5ec-bc0422da232a",
+      "name": "Append or update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.historyId }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        256,
+        1296
+      ],
+      "id": "c14b4405-0cbf-4a2d-bd54-0dbfe0cb57d6",
+      "name": "Simple Memory2"
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "emailType": "text",
+        "message": "={{ $json.output }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        544,
+        1040
+      ],
+      "id": "daea0279-fbec-459a-9836-60ed98fb73b3",
+      "name": "Reply to a message",
+      "webhookId": "9c119203-af46-49bc-a743-c1b67f412100",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Xm6QANx1Lv72h5Gh",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "appointandcontactus": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chatbot": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Check Service",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "New Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Old lead but New Service",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Service": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Client Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Old lead but New Service": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New Leads": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Client Message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent3": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Client Message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Send a message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent5": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Reply to a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory2": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f372618d-ab97-41a7-800d-590cbff0ee79",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "637d1f9f810a7cfbae65c1a3d445719fbb8567db1fc41d1cc5076ac24bf1e550"
+  },
+  "nodeGroups": [],
+  "id": "3H1Ps45ikPJgxsCs",
+  "tags": []
+}

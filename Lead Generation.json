@@ -1,0 +1,895 @@
+{
+  "name": "Lead Generation",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Lead",
+        "formDescription": "Generation",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Niche",
+              "placeholder": "e.g: niche"
+            },
+            {
+              "fieldLabel": "City",
+              "placeholder": "eg, New York"
+            },
+            {
+              "fieldLabel": "Country",
+              "placeholder": "e,g.  USA"
+            },
+            {
+              "fieldLabel": "How many Result",
+              "fieldType": "number",
+              "placeholder": "e,g 10"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -2432,
+        32
+      ],
+      "id": "b0887790-a82e-4bc2-a450-e0bdf4521108",
+      "name": "On form submission",
+      "webhookId": "619cd7e4-6427-407d-abad-b9056643cdad"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1600,
+        16
+      ],
+      "id": "fa33d4cf-e9ce-49a9-93d5-cafc29372f94",
+      "name": "Loop Over Items",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0b7a1f51-cd1c-498e-8d98-058f584b555c",
+              "leftValue": "={{ $json.website }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1328,
+        112
+      ],
+      "id": "92a3c299-8ae2-4c7d-a297-bde698883fbb",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "899e9e0f-641d-4961-b618-3b85886e2684",
+              "name": "name",
+              "value": "={{ $('If').item.json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "02e85ff4-c5c3-4cb3-868e-7f1c861f9f6d",
+              "name": "emails",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "5369c9e0-148d-488c-88ee-51ce48406ac0",
+              "name": "category",
+              "value": "={{ $('If').item.json.category }}",
+              "type": "string"
+            },
+            {
+              "id": "c9f3e296-7954-42b8-8a02-24c99af63cdd",
+              "name": "address",
+              "value": "={{ $('If').item.json.address }}",
+              "type": "string"
+            },
+            {
+              "id": "4b6449de-825d-4a68-81e5-f11e8e54e1d4",
+              "name": "website",
+              "value": "={{ $('If').item.json.website }}",
+              "type": "string"
+            },
+            {
+              "id": "82b93417-e47f-4ebf-b6b0-d7519a775302",
+              "name": "phone",
+              "value": "={{ $('If').item.json.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "8e1a58fb-e372-4698-a2db-cdc9df826db1",
+              "name": "Niche",
+              "value": "={{ $('On form submission').item.json.Niche }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -672,
+        96
+      ],
+      "id": "923ce68b-39bd-4610-b370-ac15bb204c33",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c09f935a-ec18-4d97-8822-75163998d49c",
+              "leftValue": "={{ $json.emails }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -448,
+        96
+      ],
+      "id": "7de06f08-fc6f-4421-a294-2ec95502144e",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "jsCode": "let itemsData = items.map(item => item.json);\n\n// emails collect (sheet already send ho chuki hai, but safe side)\nlet emails = [];\nlet nextLinks = [];\n\nitemsData.forEach(d => {\n\n  if (d.Mail) emails.push(d.Mail);\n\n  // agar future crawling links hon\n  if (d.next_urls) {\n    if (Array.isArray(d.next_urls)) {\n      nextLinks.push(...d.next_urls);\n    }\n  }\n\n});\n\n// remove duplicates\nconst uniqueEmails = [...new Set(emails.map(e => e.toLowerCase()))];\nconst uniqueLinks = [...new Set(nextLinks)];\n\nreturn [\n  {\n    json: {\n      status: \"round_completed\",\n\n      // 🔥 LOOP CONTROL SIGNAL\n      continue_loop: uniqueLinks.length > 0,\n\n      next_urls: uniqueLinks,\n\n      emails_collected: uniqueEmails.length\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        192
+      ],
+      "id": "64f13410-054d-4ad4-a3d5-feaaa31e448d",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "899e9e0f-641d-4961-b618-3b85886e2684",
+              "name": "name",
+              "value": "={{ $('If').item.json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "5369c9e0-148d-488c-88ee-51ce48406ac0",
+              "name": "category",
+              "value": "={{ $('If').item.json.category }}",
+              "type": "string"
+            },
+            {
+              "id": "c9f3e296-7954-42b8-8a02-24c99af63cdd",
+              "name": "address",
+              "value": "={{ $('If').item.json.address }}",
+              "type": "string"
+            },
+            {
+              "id": "82b93417-e47f-4ebf-b6b0-d7519a775302",
+              "name": "phone",
+              "value": "={{ $('If').item.json.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "b2bffe32-f8cd-407d-b667-b688630ed455",
+              "name": "Niche",
+              "value": "={{ $('On form submission').item.json.Niche }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -224,
+        400
+      ],
+      "id": "13db9af3-6f84-48cd-be30-e689d55419b0",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "899e9e0f-641d-4961-b618-3b85886e2684",
+              "name": "name",
+              "value": "={{ $('If').item.json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "5369c9e0-148d-488c-88ee-51ce48406ac0",
+              "name": "category",
+              "value": "={{ $('If').item.json.category }}",
+              "type": "string"
+            },
+            {
+              "id": "c9f3e296-7954-42b8-8a02-24c99af63cdd",
+              "name": "address",
+              "value": "={{ $('If').item.json.address }}",
+              "type": "string"
+            },
+            {
+              "id": "82b93417-e47f-4ebf-b6b0-d7519a775302",
+              "name": "phone",
+              "value": "={{ $('If').item.json.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "c8dd6375-a8da-4628-af40-2c5a1b330655",
+              "name": "website",
+              "value": "={{ $('Edit Fields').item.json.website }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -224,
+        192
+      ],
+      "id": "86edc8d4-75dd-4124-a0a7-f74c65e4486b",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.flatMap(item => {\n\n  const raw = item.json;\n\n  // har possible array ko detect karo\n  const list = raw.local_results \n            || raw.results \n            || raw.places \n            || raw.data \n            || [raw];\n\n  return list.map(data => {\n\n    return {\n      json: {\n        category: data.type || data[\"type_ids[0]\"] || \"\",\n        address: data.address || \"\",\n        phone: data.phone || \"\",\n        website: data.website || \"\",\n        name: data.title || data.name || \"\",\n        reviews: data.reviews || \"\",\n        rating: data.rating || \"\",\n\n        // optional useful fields\n        open_status: data.open_state || \"\",\n        thumbnail: data.thumbnail || \"\",\n\n        // debugging ke liye (baad mein hata dena)\n        full_data: data\n      }\n    };\n\n  });\n\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2016,
+        16
+      ],
+      "id": "d1e44a77-705f-4687-b861-e89b1d2a6572",
+      "name": "Clean in serp data"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.website }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "=en-US,en;q=0.9"
+            },
+            {
+              "name": "=Accept",
+              "value": "=text/html,application/xhtml+xml"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "timeout": 50000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -1120,
+        96
+      ],
+      "id": "e4fa1d72-1511-4028-aa68-ceecfd89d015",
+      "name": "Get data from web",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const browserHeaders = {\n  \"User-Agent\":\n    \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36\",\n  Accept:\n    \"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\",\n  \"Accept-Language\": \"en-US,en;q=0.9\",\n  Referer: \"https://www.google.com/\",\n  Connection: \"keep-alive\",\n  \"Cache-Control\": \"max-age=0\",\n};\n\nconst emailRegex =\n  /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\\.)+[A-Za-z]{2,}/g;\n\nconst badDomainRegex =\n  /(?:example|invalid|localhost|localdomain|sentry|mlsgrid|facebookmail|instagram|linkedin|github|google)\\.(?:com|net|org|io|co|us|info|app|dev)$/i;\n\nfunction cleanEmail(email) {\n  return String(email || \"\")\n    .trim()\n    .replace(/[\\u200B-\\u200F\\uFEFF]/g, \"\")\n    .replace(/^[<\\s\"']+|[>\\s\"']+$/g, \"\")\n    .replace(/[.,;:)\\]}]+$/, \"\");\n}\n\nfunction isVerifiedEmail(email) {\n  email = cleanEmail(email).toLowerCase();\n  if (!emailRegex.test(email)) return false;\n  if (email.length > 254) return false;\n  if (email.includes(\"..\")) return false;\n  if (/%[0-9A-F]{2}/i.test(email)) return false;\n  const [local, domain] = email.split(\"@\");\n  if (!local || !domain) return false;\n  if (local.length > 64 || domain.length > 253) return false;\n  if (/^[.\\-]/.test(local) || /[.\\-]$/.test(local)) return false;\n  if (badDomainRegex.test(domain)) return false;\n  if (/[^ -~]/.test(email)) return false;\n  return true;\n}\n\nfunction decodeEntities(str) {\n  return str\n    .replace(/&nbsp;/gi, \" \")\n    .replace(/&amp;/gi, \"&\")\n    .replace(/&lt;/gi, \"<\")\n    .replace(/&gt;/gi, \">\")\n    .replace(/&#(\\d+);/g, (_, n) => String.fromCharCode(n))\n    .replace(/&#x([0-9A-Fa-f]+);/g, (_, n) =>\n      String.fromCharCode(parseInt(n, 16))\n    );\n}\n\nfunction extractEmailsFromText(text) {\n  const normalized = decodeEntities(text || \"\");\n  const matches = normalized.match(emailRegex) || [];\n  return [...new Set(matches.map(cleanEmail))].filter(isVerifiedEmail);\n}\n\nfunction extractSection(html, tag) {\n  const regex = new RegExp(`<${tag}[^>]*>[\\\\s\\\\S]*?<\\\\/${tag}>`, \"i\");\n  const match = html.match(regex);\n  return match ? match[0] : \"\";\n}\n\nfunction findMailtoEmails(html) {\n  const mailto = [];\n  const regex = /mailto:([^\"'<>?\\s]+)/gi;\n  let match;\n  while ((match = regex.exec(html))) {\n    mailto.push(cleanEmail(match[1]));\n  }\n  return [...new Set(mailto)].filter(isVerifiedEmail);\n}\n\nfunction getUrlFromItems(items, pattern) {\n  for (const item of items) {\n    const candidate =\n      item?.json?.url ||\n      item?.json?.href ||\n      item?.json?.link ||\n      item?.json?.source ||\n      item?.json?.website ||\n      \"\";\n    if (typeof candidate === \"string\" && pattern.test(candidate)) {\n      return candidate;\n    }\n  }\n  return null;\n}\n\nfunction normalizeUrl(url) {\n  if (!url) return null;\n  try {\n    return new URL(url).href;\n  } catch {\n    return null;\n  }\n}\n\nasync function fetchHtml(url) {\n  const response = await fetch(url, { headers: browserHeaders });\n  if (!response.ok) throw new Error(`Fetch failed ${response.status}`);\n  return response.text();\n}\n\nfunction scoreEmailContext(html, email) {\n  const idx = html.indexOf(email);\n  if (idx < 0) return 0;\n  const fragment = html.slice(Math.max(0, idx - 120), idx + email.length + 120);\n  const contactWords = /(contact|reach|email|office|phone|support|get in touch|customer service|team|help)/i;\n  return contactWords.test(fragment) ? 2 : 1;\n}\n\nfunction findBestEmail(html, sections = [\"header\", \"footer\", \"body\"]) {\n  const candidates = [];\n  for (const section of sections) {\n    const text =\n      section === \"body\"\n        ? html\n        : extractSection(html, section) || html;\n    findMailtoEmails(text).forEach((email) =>\n      candidates.push({\n        email,\n        score: scoreEmailContext(text, email) + (section === \"header\" || section === \"footer\" ? 2 : 0),\n      })\n    );\n    extractEmailsFromText(text).forEach((email) =>\n      candidates.push({\n        email,\n        score: scoreEmailContext(text, email) + (section === \"header\" || section === \"footer\" ? 1 : 0),\n      })\n    );\n  }\n  const unique = new Map();\n  for (const candidate of candidates) {\n    if (!unique.has(candidate.email) || unique.get(candidate.email) < candidate.score) {\n      unique.set(candidate.email, candidate.score);\n    }\n  }\n  return [...unique.entries()]\n    .sort((a, b) => b[1] - a[1])\n    .map(([email]) => email)[0] || null;\n}\n\nasync function findImportantEmail(items = []) {\n  const contactUrl =\n    normalizeUrl(\n      getUrlFromItems(items, /contact|kontakt|get[-_\\s]?in[-_\\s]?touch|support/i)\n    ) || null;\n  const homeUrl =\n    normalizeUrl(getUrlFromItems(items, /^https?:\\/\\/[^/]+\\/?$/i)) ||\n    normalizeUrl(getUrlFromItems(items, /homepage|home/i));\n  const aboutUrl =\n    normalizeUrl(getUrlFromItems(items, /about|impressum|company|team/i)) ||\n    null;\n\n  if (contactUrl) {\n    try {\n      const html = await fetchHtml(contactUrl);\n      const email = findBestEmail(html, [\"header\", \"footer\", \"body\"]);\n      if (email) return { email, source: contactUrl };\n    } catch {}\n  }\n\n  if (homeUrl) {\n    try {\n      const html = await fetchHtml(homeUrl);\n      const headerEmail = findBestEmail(html, [\"header\"]);\n      if (headerEmail) return { email: headerEmail, source: `${homeUrl} header` };\n      const footerEmail = findBestEmail(html, [\"footer\"]);\n      if (footerEmail) return { email: footerEmail, source: `${homeUrl} footer` };\n    } catch {}\n  }\n\n  if (aboutUrl) {\n    try {\n      const html = await fetchHtml(aboutUrl);\n      const aboutEmail = findBestEmail(html, [\"body\"]);\n      if (aboutEmail) return { email: aboutEmail, source: aboutUrl };\n    } catch {}\n  }\n\n  for (const item of items) {\n    const html = item?.json?.body || item?.json?.data || item?.json?.html || \"\";\n    const email = findBestEmail(String(html), [\"body\"]);\n    if (email) return { email, source: \"local\" };\n  }\n\n  return { email: null, source: \"none\" };\n}\n\nreturn [\n  {\n    json: await findImportantEmail(items),\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -896,
+        96
+      ],
+      "id": "8ee5f5de-0c39-47ab-bcfc-9114736f8b8a",
+      "name": "Extra mail"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1YXf6QaXHyTM2H2Xgq3r7odv0V_61jBsxJXioV-CGBjQ",
+          "mode": "list",
+          "cachedResultName": "Lead With mail",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YXf6QaXHyTM2H2Xgq3r7odv0V_61jBsxJXioV-CGBjQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YXf6QaXHyTM2H2Xgq3r7odv0V_61jBsxJXioV-CGBjQ/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.name }}",
+            "Mail": "={{ $json.emails }}",
+            "Phone": "={{ $json.phone }}",
+            "Website": "={{ $json.website }}",
+            "Address": "={{ $json.address }}",
+            "Niche": "={{ $json.Niche }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Mail",
+              "displayName": "Mail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Niche",
+              "displayName": "Niche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e1bfeb22-56fe-4ec7-9be6-d7327d6449a9",
+      "name": "Data complete",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1YXf6QaXHyTM2H2Xgq3r7odv0V_61jBsxJXioV-CGBjQ",
+          "mode": "list",
+          "cachedResultName": "Lead With mail",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YXf6QaXHyTM2H2Xgq3r7odv0V_61jBsxJXioV-CGBjQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 6363266,
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YXf6QaXHyTM2H2Xgq3r7odv0V_61jBsxJXioV-CGBjQ/edit#gid=6363266"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.name }}",
+            "Phone": "={{ $json.phone }}",
+            "website": "={{ $json.website }}",
+            "Address": "={{ $json.address }}",
+            "Niche": "={{ $json.Niche }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Niche",
+              "displayName": "Niche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "website",
+              "displayName": "website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        192
+      ],
+      "id": "d63cbadd-bd3c-4324-8940-bbff5b306b31",
+      "name": "Without mail",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1K-vWin-3RXaXHEA349EVNgD2zgCBQSk4F6EZhZ8TTUM",
+          "mode": "list",
+          "cachedResultName": "New",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1K-vWin-3RXaXHEA349EVNgD2zgCBQSk4F6EZhZ8TTUM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1K-vWin-3RXaXHEA349EVNgD2zgCBQSk4F6EZhZ8TTUM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.name }}",
+            "Niche": "={{ $('On form submission').item.json.Niche }}",
+            "Address": "={{ $json.address }}",
+            "Phone": "={{ $json.phone }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Niche",
+              "displayName": "Niche",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        384
+      ],
+      "id": "c25b6518-8a1a-4fa7-bb0c-b8ab51957c4a",
+      "name": "Without mail1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jtjDc51ARVPCsz6G",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "value": "nwua9Gu5YrADL7ZDj",
+          "mode": "list",
+          "cachedResultName": "Google Maps Scraper (compass/crawler-google-places)",
+          "cachedResultUrl": "https://console.apify.com/actors/nwua9Gu5YrADL7ZDj/input"
+        },
+        "customBody": "={\n    \"includeWebResults\": false,\n    \"language\": \"en\",\n    \"locationQuery\": \"{{ $json.City }}, {{ $json.Country }}\",\n    \"maxCrawledPlacesPerSearch\": {{ $json['How many Result'] }},\n    \"maximumLeadsEnrichmentRecords\": 0,\n    \"scrapeContacts\": false,\n    \"scrapeDirectories\": false,\n    \"scrapeImageAuthors\": false,\n    \"scrapePlaceDetailPage\": false,\n    \"scrapeReviewsPersonalData\": true,\n    \"scrapeSocialMediaProfiles\": {\n        \"facebooks\": false,\n        \"instagrams\": false,\n        \"tiktoks\": false,\n        \"twitters\": false,\n        \"youtubes\": false\n    },\n    \"scrapeTableReservationProvider\": false,\n    \"searchStringsArray\": [\n        \"{{ $json.Niche }}\"\n    ],\n    \"skipClosedPlaces\": false,\n    \"verifyLeadsEnrichmentEmails\": false\n}",
+        "timeout": 50000,
+        "authentication": "apifyOAuth2Api"
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -2272,
+        32
+      ],
+      "id": "03cc09fd-e9b9-4e02-9419-6cc33fde89fd",
+      "name": "Run an Actor and get dataset",
+      "retryOnFail": true,
+      "executeOnce": false,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "apifyOAuth2Api": {
+          "id": "Wr8gko1PLt0qbbn7",
+          "name": "Apify OAuth2 API"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "clearDeduplicationHistory",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        -1792,
+        16
+      ],
+      "id": "f2f084b1-1499-4198-a951-3de5d424674a",
+      "name": "Remove Duplicates"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Run an Actor and get dataset",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get data from web",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Data complete",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Without mail1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Without mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean in serp data": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get data from web": {
+      "main": [
+        [
+          {
+            "node": "Extra mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extra mail": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data complete": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Without mail": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Without mail1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run an Actor and get dataset": {
+      "main": [
+        [
+          {
+            "node": "Clean in serp data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "7517033d-0a6b-4dfb-a1b0-87c35d59d2ed",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "637d1f9f810a7cfbae65c1a3d445719fbb8567db1fc41d1cc5076ac24bf1e550"
+  },
+  "nodeGroups": [],
+  "id": "Mz5fuvE15EYYFhfE",
+  "tags": []
+}
