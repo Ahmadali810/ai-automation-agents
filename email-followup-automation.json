@@ -22,17 +22,17 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "value": "1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM",
+          "value": "YOUR_GOOGLE_SHEET_ID_3",
           "mode": "list",
           "cachedResultName": "ROOFERS",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_3/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_3/edit#gid=0"
         },
         "filtersUI": {
           "values": []
@@ -143,17 +143,17 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "value": "1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM",
+          "value": "YOUR_GOOGLE_SHEET_ID_3",
           "mode": "list",
           "cachedResultName": "ROOFERS",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_3/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": 1338448885,
           "mode": "list",
           "cachedResultName": "Sheet2",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit#gid=1338448885"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_3/edit#gid=1338448885"
         },
         "options": {}
       },
@@ -299,17 +299,17 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM",
+          "value": "YOUR_GOOGLE_SHEET_ID_3",
           "mode": "list",
           "cachedResultName": "ROOFERS",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_3/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": 1507462640,
           "mode": "list",
           "cachedResultName": "USA",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit#gid=1507462640"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_3/edit#gid=1507462640"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -413,17 +413,17 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM",
+          "value": "YOUR_GOOGLE_SHEET_ID_3",
           "mode": "list",
           "cachedResultName": "ROOFERS",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_3/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": 335011229,
           "mode": "list",
           "cachedResultName": "UK",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit#gid=335011229"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_3/edit#gid=335011229"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -574,17 +574,17 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM",
+          "value": "YOUR_GOOGLE_SHEET_ID_3",
           "mode": "list",
           "cachedResultName": "ROOFERS",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_3/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": 707849212,
           "mode": "list",
           "cachedResultName": "AU",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NphcxTBjRwvcNDUIwJIelOkuM7HMO-hpsr5iieV-8gM/edit#gid=707849212"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_3/edit#gid=707849212"
         },
         "columns": {
           "mappingMode": "defineBelow",
