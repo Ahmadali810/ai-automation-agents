@@ -180,7 +180,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\n// Fixed test payroll period\nconst startDate = new Date(\"2026-08-20T00:00:00\");\nconst endDate = new Date(\"2026-09-19T23:59:59\");\n\n// Sirf 20 Aug 2026 se 19 Sep 2026 tak ke records\nconst records = items.filter(item => {\n  const date = new Date(item.json.Date + \"T00:00:00\");\n  return date >= startDate && date <= endDate;\n});\n\n// Employees ko group karo\nconst employees = {};\n\nfor (const item of records) {\n  const data = item.json;\n  const id = data.ID;\n\n  if (!employees[id]) {\n    employees[id] = {\n      ID: data.ID,\n      Name: data.Name,\n      Department: data.Department,\n\n      P: 0,\n      A: 0,\n      H: 0,\n      HD: 0,\n      L: 0,\n\n      TotalDays: 0,\n      TotalWorkingMinutes: 0\n    };\n  }\n\n  const employee = employees[id];\n\n  // Status count\n  if (data.Status === \"P\") employee.P++;\n  if (data.Status === \"A\") employee.A++;\n  if (data.Status === \"H\") employee.H++;\n  if (data.Status === \"HD\") employee.HD++;\n  if (data.Status === \"L\") employee.L++;\n\n  employee.TotalDays++;\n\n  // Time In / Time Out\n  if (data[\"Time in\"] && data[\"Time out\"]) {\n    const [inH, inM, inS] = data[\"Time in\"].split(\":\").map(Number);\n    const [outH, outM, outS] = data[\"Time out\"].split(\":\").map(Number);\n\n    const timeInMinutes = inH * 60 + inM + inS / 60;\n    const timeOutMinutes = outH * 60 + outM + outS / 60;\n\n    let workingMinutes = timeOutMinutes - timeInMinutes;\n\n    // Midnight cross hone ki situation\n    if (workingMinutes < 0) {\n      workingMinutes += 24 * 60;\n    }\n\n    employee.TotalWorkingMinutes += workingMinutes;\n  }\n}\n\n// Final output\nreturn Object.values(employees).map(employee => {\n\n  const totalHours = Math.floor(employee.TotalWorkingMinutes / 60);\n  const totalMinutes = Math.round(employee.TotalWorkingMinutes % 60);\n\n  return {\n    json: {\n      ID: employee.ID,\n      Name: employee.Name,\n      Department: employee.Department,\n\n      PayrollPeriod: \"2026-08-20 to 2026-09-19\",\n\n      P: employee.P,\n      A: employee.A,\n      H: employee.H,\n      HD: employee.HD,\n      L: employee.L,\n\n      TotalDays: employee.TotalDays,\n\n      TotalWorkingHours:\n        `${totalHours} hours ${totalMinutes} minutes`\n    }\n  };\n});"
+        "jsCode": "const items = $input.all();\n\n// Fixed test payroll period\nconst startDate = new Date(\"2026-08-20T00:00:00\");\nconst endDate = new Date(\"2026-09-19T23:59:59\");\n\n// Only records from 20 Aug 2026 to 19 Sep 2026\nconst records = items.filter(item => {\n  const date = new Date(item.json.Date + \"T00:00:00\");\n  return date >= startDate && date <= endDate;\n});\n\n// Group employees by ID\nconst employees = {};\n\nfor (const item of records) {\n  const data = item.json;\n  const id = data.ID;\n\n  if (!employees[id]) {\n    employees[id] = {\n      ID: data.ID,\n      Name: data.Name,\n      Department: data.Department,\n\n      P: 0,\n      A: 0,\n      H: 0,\n      HD: 0,\n      L: 0,\n\n      TotalDays: 0,\n      TotalWorkingMinutes: 0\n    };\n  }\n\n  const employee = employees[id];\n\n  // Status count\n  if (data.Status === \"P\") employee.P++;\n  if (data.Status === \"A\") employee.A++;\n  if (data.Status === \"H\") employee.H++;\n  if (data.Status === \"HD\") employee.HD++;\n  if (data.Status === \"L\") employee.L++;\n\n  employee.TotalDays++;\n\n  // Time In / Time Out\n  if (data[\"Time in\"] && data[\"Time out\"]) {\n    const [inH, inM, inS] = data[\"Time in\"].split(\":\").map(Number);\n    const [outH, outM, outS] = data[\"Time out\"].split(\":\").map(Number);\n\n    const timeInMinutes = inH * 60 + inM + inS / 60;\n    const timeOutMinutes = outH * 60 + outM + outS / 60;\n\n    let workingMinutes = timeOutMinutes - timeInMinutes;\n\n    // Handle midnight crossover\n    if (workingMinutes < 0) {\n      workingMinutes += 24 * 60;\n    }\n\n    employee.TotalWorkingMinutes += workingMinutes;\n  }\n}\n\n// Final output\nreturn Object.values(employees).map(employee => {\n\n  const totalHours = Math.floor(employee.TotalWorkingMinutes / 60);\n  const totalMinutes = Math.round(employee.TotalWorkingMinutes % 60);\n\n  return {\n    json: {\n      ID: employee.ID,\n      Name: employee.Name,\n      Department: employee.Department,\n\n      PayrollPeriod: \"2026-08-20 to 2026-09-19\",\n\n      P: employee.P,\n      A: employee.A,\n      H: employee.H,\n      HD: employee.HD,\n      L: employee.L,\n\n      TotalDays: employee.TotalDays,\n\n      TotalWorkingHours:\n        `${totalHours} hours ${totalMinutes} minutes`\n    }\n  };\n});"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -189,7 +189,7 @@
         16
       ],
       "id": "e9147a76-e955-4ff8-9948-122cd265ce6f",
-      "name": "Calcualte Attendance"
+      "name": "Calculate Attendance"
     },
     {
       "parameters": {
@@ -396,7 +396,7 @@
         -224
       ],
       "id": "619e38d0-9b1a-484e-bf24-01dc81de2034",
-      "name": "Data convert ho HTML"
+      "name": "Convert Data to HTML"
     },
     {
       "parameters": {
@@ -488,7 +488,7 @@
       "main": [
         [
           {
-            "node": "Data convert ho HTML",
+            "node": "Convert Data to HTML",
             "type": "main",
             "index": 0
           }
@@ -528,14 +528,14 @@
       "main": [
         [
           {
-            "node": "Calcualte Attendance",
+            "node": "Calculate Attendance",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Calcualte Attendance": {
+    "Calculate Attendance": {
       "main": [
         [
           {
@@ -568,7 +568,7 @@
         ]
       ]
     },
-    "Data convert ho HTML": {
+    "Convert Data to HTML": {
       "main": [
         [
           {
