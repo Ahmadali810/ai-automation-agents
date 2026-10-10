@@ -1,0 +1,599 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtHour": 14
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -448,
+        -32
+      ],
+      "id": "8d0a9c3b-3db8-4515-8233-1595091b30b5",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        64,
+        -32
+      ],
+      "id": "e797e756-51d4-4f13-a327-37fd1300d805",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "14551c83-b993-4929-ae7a-e4801cc31114",
+              "name": "ID",
+              "value": "={{ $json.ID }}",
+              "type": "string"
+            },
+            {
+              "id": "b8ac03d1-baf1-4469-a537-70ce012dc050",
+              "name": "Name",
+              "value": "={{ $json.Name }}",
+              "type": "string"
+            },
+            {
+              "id": "87485286-0238-447d-9989-d55c5aebc570",
+              "name": "Department",
+              "value": "={{ $json.Department }}",
+              "type": "string"
+            },
+            {
+              "id": "62523f76-cdf2-4676-a840-3900261fb11e",
+              "name": "PayrollPeriod",
+              "value": "={{ $json.PayrollPeriod }}",
+              "type": "string"
+            },
+            {
+              "id": "dcd3e655-42e3-413d-9acc-1d5cf4307ee1",
+              "name": "P",
+              "value": "={{ $json.P }}",
+              "type": "number"
+            },
+            {
+              "id": "e4408f7f-ba1c-464c-8442-9ef8bc01bfb6",
+              "name": "A",
+              "value": "={{ $json.A }}",
+              "type": "number"
+            },
+            {
+              "id": "6fbcb508-1500-41ea-982e-48867a308f8f",
+              "name": "H",
+              "value": "={{ $json.H }}",
+              "type": "number"
+            },
+            {
+              "id": "d42dae09-55ac-4081-bfe2-dbc7dd7120b2",
+              "name": "HD",
+              "value": "={{ $json.HD }}",
+              "type": "number"
+            },
+            {
+              "id": "a77ffe4b-d1f2-4dd5-a576-58217b46ab22",
+              "name": "L",
+              "value": "={{ $json.L }}",
+              "type": "number"
+            },
+            {
+              "id": "aae58638-3633-40fc-beb2-1e972afdded2",
+              "name": "TotalDays",
+              "value": "={{ $json.TotalDays }}",
+              "type": "number"
+            },
+            {
+              "id": "898b5e38-33f3-44ee-b6c0-4be6cc8ec277",
+              "name": "Salary",
+              "value": "={{ $('Emp. ID and Other data').item.json.Salary }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        752,
+        16
+      ],
+      "id": "56626cea-dc77-4a7d-8c12-577862e5f2ee",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID_HR",
+          "mode": "list",
+          "cachedResultName": "HR Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_HR/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Registration",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_HR/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -160,
+        -32
+      ],
+      "id": "5e22bf92-6677-4e0e-b97e-48c7a4e369d8",
+      "name": "Emp. ID and Other data"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID_HR",
+          "mode": "list",
+          "cachedResultName": "HR Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_HR/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 979956706,
+          "mode": "list",
+          "cachedResultName": "Attendence",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_HR/edit#gid=979956706"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "ID",
+              "lookupValue": "={{ $json.ID }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        304,
+        16
+      ],
+      "id": "fa585684-bc92-47c9-93d3-2392e4435eff",
+      "name": "Emp. Attendence sheet"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// Fixed test payroll period\nconst startDate = new Date(\"2026-08-20T00:00:00\");\nconst endDate = new Date(\"2026-09-19T23:59:59\");\n\n// Sirf 20 Aug 2026 se 19 Sep 2026 tak ke records\nconst records = items.filter(item => {\n  const date = new Date(item.json.Date + \"T00:00:00\");\n  return date >= startDate && date <= endDate;\n});\n\n// Employees ko group karo\nconst employees = {};\n\nfor (const item of records) {\n  const data = item.json;\n  const id = data.ID;\n\n  if (!employees[id]) {\n    employees[id] = {\n      ID: data.ID,\n      Name: data.Name,\n      Department: data.Department,\n\n      P: 0,\n      A: 0,\n      H: 0,\n      HD: 0,\n      L: 0,\n\n      TotalDays: 0,\n      TotalWorkingMinutes: 0\n    };\n  }\n\n  const employee = employees[id];\n\n  // Status count\n  if (data.Status === \"P\") employee.P++;\n  if (data.Status === \"A\") employee.A++;\n  if (data.Status === \"H\") employee.H++;\n  if (data.Status === \"HD\") employee.HD++;\n  if (data.Status === \"L\") employee.L++;\n\n  employee.TotalDays++;\n\n  // Time In / Time Out\n  if (data[\"Time in\"] && data[\"Time out\"]) {\n    const [inH, inM, inS] = data[\"Time in\"].split(\":\").map(Number);\n    const [outH, outM, outS] = data[\"Time out\"].split(\":\").map(Number);\n\n    const timeInMinutes = inH * 60 + inM + inS / 60;\n    const timeOutMinutes = outH * 60 + outM + outS / 60;\n\n    let workingMinutes = timeOutMinutes - timeInMinutes;\n\n    // Midnight cross hone ki situation\n    if (workingMinutes < 0) {\n      workingMinutes += 24 * 60;\n    }\n\n    employee.TotalWorkingMinutes += workingMinutes;\n  }\n}\n\n// Final output\nreturn Object.values(employees).map(employee => {\n\n  const totalHours = Math.floor(employee.TotalWorkingMinutes / 60);\n  const totalMinutes = Math.round(employee.TotalWorkingMinutes % 60);\n\n  return {\n    json: {\n      ID: employee.ID,\n      Name: employee.Name,\n      Department: employee.Department,\n\n      PayrollPeriod: \"2026-08-20 to 2026-09-19\",\n\n      P: employee.P,\n      A: employee.A,\n      H: employee.H,\n      HD: employee.HD,\n      L: employee.L,\n\n      TotalDays: employee.TotalDays,\n\n      TotalWorkingHours:\n        `${totalHours} hours ${totalMinutes} minutes`\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        16
+      ],
+      "id": "e9147a76-e955-4ff8-9948-122cd265ce6f",
+      "name": "Calcualte Attendance"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nreturn items.map(item => {\n  const data = item.json;\n\n  const monthlySalary = Number(data.Salary) || 0;\n\n  // Always calculate salary deduction on 30 days\n  const perDaySalary = monthlySalary / 30;\n\n  const leave = Number(data.L) || 0;\n  const absent = Number(data.A) || 0;\n  const halfday = Number(data.HD) || 0;\n  const present = Number(data.P) || 0;\n  const holiday = Number(data.H) || 0;\n\n  // Deduction days\n  const deductionDays =\n    leave +\n    absent +\n    (halfday * 0.5);\n\n  // Salary deduction\n  const salaryDeduction =\n    perDaySalary * deductionDays;\n\n  // Final salary\n  const totalSalary =\n    monthlySalary - salaryDeduction;\n\n  const [startMonth, endMonth] =\n    data.PayrollPeriod.split(\" to \");\n\n  return {\n    json: {\n      ID: data.ID,\n      Name: data.Name,\n      Department: data.Department,\n\n      \"Salary Detuction\": Number(salaryDeduction.toFixed(2)),\n\n      Leave: leave,\n      Absent: absent,\n      Halfday: halfday,\n      Present: present,\n      Holiday: holiday,\n\n      \"Total Salary\": Number(totalSalary.toFixed(2)),\n\n      \"Start month\": startMonth,\n      \"End month\": endMonth\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        16
+      ],
+      "id": "4163cde3-5ddc-467a-abb6-c9798548c95e",
+      "name": "Salary Maker"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID_HR",
+          "mode": "list",
+          "cachedResultName": "HR Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_HR/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 173054670,
+          "mode": "list",
+          "cachedResultName": "Payroll",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_HR/edit#gid=173054670"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $json.ID }}",
+            "Name": "={{ $json.Name }}",
+            "Department": "={{ $json.Department }}",
+            "Salary Detuction": "={{ $json['Salary Detuction'] }}",
+            "Leave": "={{ $json.Leave }}",
+            "Absent": "={{ $json.Absent }}",
+            "Present": "={{ $json.Present }}",
+            "Holiday": "={{ $json.Holiday }}",
+            "Halfday": "={{ $json.Halfday }}",
+            "Start month": "={{ $json['Start month'] }}",
+            "End month": "={{ $json['End month'] }}",
+            "Salary": "={{ $('Edit Fields').item.json.Salary }}",
+            "Total Salary ": "={{ $json['Total Salary'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Department",
+              "displayName": "Department",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Salary Detuction",
+              "displayName": "Salary Detuction",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Leave",
+              "displayName": "Leave",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Absent",
+              "displayName": "Absent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Halfday",
+              "displayName": "Halfday",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Present",
+              "displayName": "Present",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Holiday",
+              "displayName": "Holiday",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Salary",
+              "displayName": "Salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Start month",
+              "displayName": "Start month",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "End month",
+              "displayName": "End month",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Total Salary ",
+              "displayName": "Total Salary ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1232,
+        16
+      ],
+      "id": "18b91d23-b15c-4f71-9ed1-204ea50680a7",
+      "name": "Payroll sheet"
+    },
+    {
+      "parameters": {
+        "jsCode": "function money(value) {\n  return Number(value || 0).toLocaleString(\"en-US\", {\n    minimumFractionDigits: 2,\n    maximumFractionDigits: 2\n  });\n}\n\nconst items = $input.all().map(item => item.json);\n\nconst rows = items.map(employee => `\n  <tr>\n    <td><b>${employee.ID || ''}</b></td>\n    <td style=\"text-align: left;\"><b>${employee.Name || ''}</b></td>\n    <td>${employee.Department || ''}</td>\n    <td style=\"text-align: right;\">${money(employee.Salary)}</td>\n    <td style=\"text-align: right; color: #dc2626;\">${money(employee[\"Salary Detuction\"])}</td>\n    <td>${employee.Leave || 0}</td>\n    <td><b style=\"color: #dc2626;\">${employee.Absent || 0}</b></td>\n    <td>${employee.Halfday || 0}</td>\n    <td><b style=\"color: #16a34a;\">${employee.Present || 0}</b></td>\n    <td>${employee.Holiday || 0}</td>\n    <td style=\"text-align: right; color: #16a34a;\"><b>${money(employee[\"Total Salary \"] || employee.Salary)}</b></td>\n  </tr>\n`).join(\"\");\n\nconst html = `\n<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<style>\n  @page { size: A4 landscape; margin: 10mm; }\n  body { font-family: Arial, sans-serif; font-size: 11px; color: #1e293b; }\n  h2 { margin: 0 0 5px 0; text-align: center; }\n  p.period { text-align: center; color: #64748b; margin-bottom: 15px; }\n  table { width: 100%; border-collapse: collapse; }\n  th { background: #0f172a; color: white; padding: 8px; text-align: center; }\n  td { padding: 6px 8px; border-bottom: 1px solid #e2e8f0; text-align: center; }\n  tr:nth-child(even) { background-color: #f8fafc; }\n</style>\n</head>\n<body>\n  <h2>EMPLOYEE PAYROLL REPORT</h2>\n  <p class=\"period\">Period: ${items[0][\"Start month\"] || ''} to ${items[0][\"End month\"] || ''}</p>\n  <table>\n    <thead>\n      <tr>\n        <th>ID</th><th style=\"text-align:left;\">Name</th><th>Department</th>\n        <th style=\"text-align:right;\">Salary</th><th style=\"text-align:right;\">Deduction</th>\n        <th>Leave</th><th>Absent</th><th>Halfday</th><th>Present</th><th>Holiday</th>\n        <th style=\"text-align:right;\">Total Salary</th>\n      </tr>\n    </thead>\n    <tbody>${rows}</tbody>\n  </table>\n</body>\n</html>\n`;\n\n// Return as binary HTML file inside n8n\nreturn [\n  {\n    json: { success: true },\n    binary: {\n      data: {\n        data: Buffer.from(html).toString('base64'),\n        mimeType: 'text/html',\n        fileName: 'report.html'\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        304,
+        -224
+      ],
+      "id": "619e38d0-9b1a-484e-bf24-01dc81de2034",
+      "name": "Data convert ho HTML"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://convertfleet.com/api/convert",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_CONVERTFLEET_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "pdf"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "output_file.pdf"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        528,
+        -224
+      ],
+      "id": "d66cc849-5a27-429f-8a73-3c041ebfd1b4",
+      "name": "HTML to PDF converter"
+    },
+    {
+      "parameters": {
+        "sendTo": "manager@example.com",
+        "subject": "=Monthly Salary Report | {{ DateTime.fromISO($('Payroll sheet').item.json['Start month']).toFormat('MMMM') }}–{{ DateTime.fromISO($('Payroll sheet').item.json['End month']).toFormat('MMMM yyyy') }}",
+        "emailType": "text",
+        "message": "=Dear Manager,\n\nPlease find attached the salary report for the period {{ DateTime.fromISO($('Payroll sheet').item.json['Start month']).toFormat('d MMMM yyyy') }} to {{ DateTime.fromISO($('Payroll sheet').item.json['End month']).toFormat('d MMMM yyyy') }}.\n\nThe report includes employee attendance, deductions, and final salary details for the period.\n\nPlease review the report and let me know if any changes are required.\n\nBest regards,\nAhmad",
+        "options": {
+          "appendAttribution": false,
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {
+                "property": "output_file.pdf"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        752,
+        -224
+      ],
+      "id": "0860d832-0716-4c54-bb82-d7fdde541f9a",
+      "name": "Send Report",
+      "webhookId": "56fb04b2-fe5b-4bbb-9f97-88a0eaffcdf3"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Emp. ID and Other data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Data convert ho HTML",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Emp. Attendence sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Salary Maker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emp. ID and Other data": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emp. Attendence sheet": {
+      "main": [
+        [
+          {
+            "node": "Calcualte Attendance",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcualte Attendance": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Salary Maker": {
+      "main": [
+        [
+          {
+            "node": "Payroll sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Payroll sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data convert ho HTML": {
+      "main": [
+        [
+          {
+            "node": "HTML to PDF converter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML to PDF converter": {
+      "main": [
+        [
+          {
+            "node": "Send Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9d39500499606dd9c84f4095c9812f808e5b455b43a5d1525448cd3f83d10718"
+  }
+}

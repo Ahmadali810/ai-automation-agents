@@ -112,6 +112,32 @@ All workflows below are sanitized for public sharing — credentials, sheet IDs,
 
 ---
 
+### 8. `appointment-booking-whatsapp-reminders.json`
+**What it does:** WhatsApp-based appointment management for a clinic — sends 24-hour reminders with confirm/cancel/reschedule options, and handles patient replies automatically.
+
+**How it works:**
+- **Reminders:** A daily 9 AM schedule trigger reads today's and tomorrow's appointments from Google Sheets, filters to confirmed/pending ones, and sends each patient a personalised WhatsApp reminder with reply options
+- **Reply routing:** A WhatsApp trigger catches replies and a `Switch` routes by keyword — `confirm` marks the appointment confirmed in Sheets and updates Google Calendar; `cancel` marks it cancelled, removes the calendar event, and notifies the admin; `reschedule` shows a numbered list of available slots; `myappointment` sends a full booking-details card
+- **Rescheduling:** The patient replies `slot 2`, the workflow validates the pick against a saved session, updates Sheets, sends the new confirmation, and notifies the admin
+- **Admin loop:** Every cancel or reschedule sends a summary straight to the admin's WhatsApp, so nothing happens silently
+
+**Why it matters:** No-shows are pure lost revenue for clinics. This closes the loop — reminders go out automatically, patients self-serve confirm/cancel/reschedule on WhatsApp, and the calendar stays in sync without receptionist effort.
+
+---
+
+### 9. `salary-payroll-automation.json`
+**What it does:** End-to-end monthly payroll automation — reads employee registration and attendance from Google Sheets, calculates deductions and net salary per employee, generates a formatted PDF report, and emails it to the manager.
+
+**How it works:**
+- A monthly schedule trigger pulls employee registration data and attendance records, looping through employees in batches
+- An attendance calculator counts Present/Absent/Half-day/Leave/Holiday days per employee and totals working hours from time-in/time-out (handling midnight crossovers)
+- A salary engine applies the deduction rules (per-day salary on a 30-day base; leave, absent, and half-days deducted) and writes each employee's payroll row back to the Payroll sheet
+- A second branch converts the payroll data into a styled HTML report, converts it to PDF via an API, and emails the PDF to the manager via Gmail
+
+**Why it matters:** Payroll is the most error-sensitive recurring ops task in any company. This turns a manual spreadsheet grind into a scheduled pipeline — attendance in, reviewed PDF in the manager's inbox, with every deduction traceable to its source rows.
+
+---
+
 ## Stack
 
 | Layer | Tools |
