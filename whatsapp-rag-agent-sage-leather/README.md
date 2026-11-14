@@ -2,6 +2,10 @@
 
 A WhatsApp AI sales/support agent with Retrieval-Augmented Generation (RAG) — built for an e-commerce leather goods brand. Understands text, voice notes, and images, and answers using the brand's actual product catalog.
 
+## Workflow
+
+![Sage Leather WhatsApp RAG Agent workflow](./screenshot.png)
+
 ## What it does
 
 Answers customer enquiries on WhatsApp from the live product catalog — text, voice notes, and product photos — instead of guessing prices or specs.
