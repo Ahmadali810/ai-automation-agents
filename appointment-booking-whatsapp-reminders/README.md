@@ -2,6 +2,10 @@
 
 WhatsApp-based appointment management for a clinic — sends 24-hour reminders with confirm/cancel/reschedule options, and handles patient replies automatically.
 
+## Workflow
+
+![Appointment Booking & WhatsApp Reminders workflow](./screenshot.png)
+
 ## What it does
 
 Patients get a WhatsApp reminder a day before their appointment, and can confirm, cancel, or reschedule by just replying — no receptionist involved.

@@ -2,6 +2,10 @@
 
 Takes a form submission (e.g. "find me business leads matching X criteria") and turns it into an enriched, deduplicated list of prospects with verified emails, ready to load into a CRM sheet.
 
+## Workflow
+
+![Lead Scraper & Enrichment workflow](./screenshot.png)
+
 ## What it does
 
 Turns a simple request into a clean prospect list — scraped, enriched, deduplicated, and sorted by whether a verified email was found.

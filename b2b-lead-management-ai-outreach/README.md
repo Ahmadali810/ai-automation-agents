@@ -2,6 +2,10 @@
 
 A complete automated B2B SDR pipeline in a single workflow — takes raw leads from list to qualified meeting: validation, enrichment, lead scoring, AI-written personalized cold emails, multi-channel touchpoints, AI reply classification, and full run analytics.
 
+## Workflow
+
+![B2B Lead Management & AI Outreach workflow](./screenshot.png)
+
 ## What it does
 
 Raw lead list in, qualified meetings out — with scoring, compliance guardrails, and analytics on every run.

@@ -2,6 +2,10 @@
 
 End-to-end monthly payroll automation — reads employee registration and attendance from Google Sheets, calculates deductions and net salary per employee, generates a formatted PDF report, and emails it to the manager.
 
+## Workflow
+
+![Salary & Payroll Automation workflow](./screenshot.png)
+
 ## What it does
 
 Attendance in, reviewed PDF in the manager's inbox — monthly payroll without the spreadsheet grind.

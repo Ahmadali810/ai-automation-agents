@@ -2,6 +2,10 @@
 
 Fully automated LinkedIn content pipeline — picks a topic, researches it, writes a post, generates a matching image, and publishes it.
 
+## Workflow
+
+![LinkedIn Auto Poster workflow](./screenshot.png)
+
 ## What it does
 
 Turns a content calendar into published LinkedIn posts with matching visuals, on autopilot.
