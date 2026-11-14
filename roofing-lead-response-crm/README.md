@@ -2,6 +2,10 @@
 
 End-to-end lead intake and response system for a local service business, built in n8n.
 
+## Workflow
+
+![Roofing Lead Response CRM workflow](./screenshot.png)
+
 ## What it does
 
 Captures leads from a website chatbot and a contact/appointment form, checks whether the contact is a new lead, an old lead requesting a new service, or an existing customer, then routes each case through the right AI-driven response.
