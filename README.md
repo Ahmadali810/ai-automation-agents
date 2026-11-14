@@ -9,17 +9,17 @@ I build systems that reduce repetitive admin work, improve response speed, organ
 
 ## Projects
 
-| Project | Purpose | Format |
-|---|---|---|
-| [Roofing Lead Response & CRM](./roofing-lead-response-crm/) | Lead intake, qualification, customer response and CRM tracking | n8n |
-| [WhatsApp Product Support](./whatsapp-rag-agent-sage-leather/) | Text, voice and image support with knowledge retrieval and pricing lookup | n8n |
-| [Clinic Appointment Reminders](./appointment-booking-whatsapp-reminders/) | Appointment reminders and patient reply routing | n8n prototype |
-| [Lead Scraping & Enrichment](./lead-scraper-enrichment/) | Lead intake, provider enrichment and spreadsheet output | n8n |
-| [Email Follow-up Sequence](./email-followup-automation/) | Scheduled spreadsheet-driven email sequences | n8n |
-| [LinkedIn Content Workflow](./linkedin-auto-poster/) | AI-assisted content and image preparation | n8n prototype |
-| [B2B Lead Management](./b2b-lead-management-ai-outreach/) | SDR pipeline patterns with simulated integrations | Demonstration |
-| [Vapi Voice Agent](./rag-voice-agent/) | Phone assistant configuration for support and lead qualification | Vapi config |
-| [Attendance & Payroll](./salary-payroll-automation/) | Attendance aggregation and payroll reporting | n8n prototype |
+Projects are intentionally ranked in this order: strongest business-facing demonstration first, followed by specialist workflows and prototypes.
+
+1. **[Roofing Lead Response & CRM](./roofing-lead-response-crm/)** — Lead intake, qualification, customer response and CRM tracking. *(n8n)*
+2. **[WhatsApp Product Support — Sage Leather](./whatsapp-rag-agent-sage-leather/)** — Text, voice and image support with knowledge retrieval and pricing lookup. *(n8n)*
+3. **[Clinic Appointment Reminders](./appointment-booking-whatsapp-reminders/)** — Appointment reminders and patient reply routing. *(n8n prototype)*
+4. **[Lead Scraping & Enrichment](./lead-scraper-enrichment/)** — Lead intake, provider enrichment and spreadsheet output. *(n8n)*
+5. **[Email Follow-up Sequence](./email-followup-automation/)** — Scheduled spreadsheet-driven email sequences. *(n8n)*
+6. **[LinkedIn Content Workflow](./linkedin-auto-poster/)** — AI-assisted content and image preparation. *(n8n prototype)*
+7. **[B2B Lead Management](./b2b-lead-management-ai-outreach/)** — SDR pipeline patterns with simulated integrations. *(Demonstration)*
+8. **[Vapi Voice Agent](./rag-voice-agent/)** — Phone assistant configuration for support and lead qualification. *(Vapi config)*
+9. **[Attendance & Payroll](./salary-payroll-automation/)** — Attendance aggregation and payroll reporting. *(n8n prototype)*
 
 ## Core capabilities
 
