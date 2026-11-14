@@ -1,6 +1,4 @@
 {
-  "id": "93fe58f1-984e-4cb3-a178-617b8ce5bba9",
-  "orgId": "7ded5901-33b0-44fe-8599-3f884fe8acae",
   "name": "Roffers",
   "voice": {
     "version": "1",
@@ -24,7 +22,7 @@
     "provider": "openai",
     "knowledgeBase": {
       "fileIds": [
-        "ad958418-4340-4560-90c9-xxxxxxxxxxx"
+        "YOUR_KNOWLEDGE_BASE_FILE_ID"
       ],
       "provider": "google"
     }
@@ -59,7 +57,7 @@
     }
   },
   "server": {
-    "url": "https://xxxxxxx.app.n8n.cloud/webhook-test/xxxxxxxxxxxxxxxxxxx",
+    "url": "https://YOUR-N8N-DOMAIN/webhook/YOUR_PRODUCTION_WEBHOOK_PATH",
     "timeoutSeconds": 20
   },
   "compliancePlan": {
