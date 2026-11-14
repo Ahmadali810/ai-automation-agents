@@ -1,44 +1,51 @@
-# Appointment Booking & WhatsApp Reminders
+# Clinic Appointment Reminders & Self-Service
 
-WhatsApp-based appointment management for a clinic — sends 24-hour reminders with confirm/cancel/reschedule options, and handles patient replies automatically.
+WhatsApp appointment reminder and patient-reply prototype built with n8n and Google Sheets.
 
-## Workflow
+## Overview
 
-![Appointment Booking & WhatsApp Reminders workflow](./screenshot.png)
+![Clinic Appointment Reminders & Self-Service workflow](./screenshot.png)
 
-## What it does
+## Included capabilities
 
-Patients get a WhatsApp reminder a day before their appointment, and can confirm, cancel, or reschedule by just replying — no receptionist involved.
-
-## How it works
-
-- **Reminders:** A daily 9 AM schedule trigger reads today's and tomorrow's appointments from Google Sheets, filters to confirmed/pending ones, and sends each patient a personalised WhatsApp reminder with reply options
-- **Reply routing:** A WhatsApp trigger catches replies and a `Switch` routes by keyword — `confirm` marks the appointment confirmed in Sheets and updates Google Calendar; `cancel` marks it cancelled, removes the calendar event, and notifies the admin; `reschedule` shows a numbered list of available slots; `myappointment` sends a full booking-details card
-- **Rescheduling:** The patient replies `slot 2`, the workflow validates the pick against a saved session, updates Sheets, sends the new confirmation, and notifies the admin
-- **Admin loop:** Every cancel or reschedule sends a summary straight to the admin's WhatsApp, so nothing happens silently
-
-## Why it matters
-
-No-shows are pure lost revenue for clinics. This closes the loop — reminders go out automatically, patients self-serve confirm/cancel/reschedule on WhatsApp, and the calendar stays in sync without receptionist effort.
-
-## File
-
-- `appointment-booking-whatsapp-reminders.json` — n8n workflow, 31 nodes
-
-## Requirements
-
-- n8n instance
-- WhatsApp (Twilio)
-- Google Sheets (appointments)
-- Google Calendar
+- Scheduled reminder dispatch
+- Inbound WhatsApp keyword routing for confirm, cancel, reschedule and appointment lookup
+- Google Sheets-based appointment/session data
 
 ## Setup
 
-1. Import `appointment-booking-whatsapp-reminders.json` into n8n (`Workflows → Import from File`)
-2. Replace placeholder values (`YOUR_GOOGLE_SHEET_ID_*`, `YOUR_CREDENTIAL_ID`) with your own credentials and sheet IDs
-3. Set up the appointments sheet with matching column headers
-4. Adjust the reminder schedule trigger if you want a different time than 9 AM
+1. Review this README and the exported JSON before importing.
+2. Import the JSON into a compatible n8n instance.
+3. Replace all `YOUR_*` placeholders and reconnect credentials in your own environment.
+4. Confirm provider node versions, API permissions, data schema, webhook URLs and timezone.
+5. Keep the workflow inactive until the validation tests pass.
 
-## Note
+## Limitations and production checklist
 
-Sanitized for public sharing — credentials, sheet IDs, and phone numbers have been replaced with placeholders.
+- The export has no verifiable Google Calendar nodes; calendar-sync claims have been removed.
+- Slot selection needs concurrency/atomic availability protection before clinic use.
+- Validate the actual WhatsApp provider payload and credentials before enabling.
+
+## Suggested validation tests
+
+- [ ] Reminder window and timezone
+- [ ] Confirm changes only the matching patient's appointment
+- [ ] Cancel affects only the matching patient appointment
+- [ ] Stale or booked reschedule slot is rejected
+- [ ] Unknown command returns a safe help response
+
+## Security
+
+- Never commit API keys, OAuth tokens, private webhook URLs, phone numbers or customer data.
+- Use least-privilege credentials and provider-side rate limits.
+- Configure authentication and request validation on public webhooks.
+- Test with synthetic records before connecting live customers.
+
+## Verification status
+
+This repository update includes static JSON/configuration and documentation cleanup. It does **not** mean the workflow has been executed end-to-end. Mark a test as passed only after observing the actual execution in your own connected environment.
+
+## Files
+
+- `appointment-booking-whatsapp-reminders.json` — workflow/configuration export
+- `screenshot.png` — existing workflow overview
