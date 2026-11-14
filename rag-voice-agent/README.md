@@ -1,41 +1,52 @@
-# RAG Voice Agent
+# Vapi Voice Agent Configuration
 
-A Vapi-powered phone AI agent ("Nate") that answers inbound calls for a local service business — handles customer questions, filters spam/robocalls, qualifies leads, and books appointments, all by voice.
+Vapi assistant configuration for a roofing-service phone assistant with knowledge-base guidance and appointment qualification.
 
-## What it does
+## Overview
 
-Answers inbound calls, qualifies the caller, and books appointments without a human picking up the phone.
+This folder contains a Vapi assistant configuration JSON, not an n8n workflow export.
 
-## How it works
+## Included capabilities
 
-- Runs on Vapi with GPT-4.1 as the reasoning model and Deepgram (with AssemblyAI fallback) for transcription
-- The system prompt defines a strict call flow: spam detection first → greeting → check for an existing appointment → lead qualification (name, address, phone, issue/request, urgency) → read back a summary → confirm → book
-- Answers general questions using a connected knowledge base (company services, pricing approach, service area) instead of guessing facts
-- Escalates urgent cases by skipping straight to essential details and prioritizing speed
-- Sends call data to an n8n webhook at the end of each call for logging/follow-up automation
-
-## Why it matters
-
-Most missed calls become missed jobs. This agent never misses a call, never forgets to ask a qualifying question, and never double-books.
-
-## File
-
-- `rag-voice-agent.json` — Vapi assistant configuration (not an n8n workflow)
-
-## Requirements
-
-- Vapi account
-- OpenAI API key (GPT-4.1)
-- Deepgram (transcription) with AssemblyAI as fallback
-- Phone number connected through Vapi
-- n8n webhook to receive end-of-call data (optional, for logging)
+- Natural-language phone greeting and call flow
+- Knowledge-base-grounded company answers
+- Lead qualification and caller-confirmed booking flow
+- Spam/irrelevant-call handling instructions
 
 ## Setup
 
-1. Import `rag-voice-agent.json` into a [Vapi](https://vapi.ai) assistant
-2. Connect your own phone number and webhook
-3. Replace placeholder values (knowledge base content, webhook URL) with your own
+1. Review this README and the exported JSON before importing.
+2. Import the JSON into a compatible n8n instance / Vapi assistant configuration.
+3. Replace all `YOUR_*` placeholders and reconnect credentials in your own environment.
+4. Confirm provider node versions, API permissions, data schema, webhook URLs and timezone.
+5. Keep the workflow inactive until the validation tests pass.
 
-## Note
+## Limitations and production checklist
 
-Sanitized for public sharing — credentials, phone numbers, and webhook URLs have been replaced with placeholders.
+- This is a Vapi assistant configuration, not an n8n workflow.
+- Referenced tool IDs and knowledge-base file IDs are external resources not included here.
+- Configure a production n8n webhook; the former webhook-test URL is replaced with a placeholder.
+- Booking cannot be verified from this assistant JSON alone; include connected tool/backend evidence.
+
+## Suggested validation tests
+
+- [ ] Knowledge-base answer and unknown-answer fallback
+- [ ] Existing appointment check before creating a new one
+- [ ] Booking requires explicit caller confirmation
+- [ ] Webhook/tool timeout and call-end report
+
+## Security
+
+- Never commit API keys, OAuth tokens, private webhook URLs, phone numbers or customer data.
+- Use least-privilege credentials and provider-side rate limits.
+- Configure authentication and request validation on public webhooks.
+- Test with synthetic records before connecting live customers.
+
+## Verification status
+
+This repository update includes static JSON/configuration and documentation cleanup. It does **not** mean the workflow has been executed end-to-end. Mark a test as passed only after observing the actual execution in your own connected environment.
+
+## Files
+
+- `rag-voice-agent.json` — workflow/configuration export
+
