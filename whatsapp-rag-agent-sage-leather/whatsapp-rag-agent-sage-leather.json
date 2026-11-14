@@ -101,7 +101,6 @@
       ],
       "id": "c9072875-a80a-4316-8961-3c37e0d5ddc4",
       "name": "WhatsApp Trigger",
-      "webhookId": "713fa4f6-e3a4-46ef-8047-0ed8e84e9388",
       "credentials": {
         "whatsAppTriggerApi": {
           "id": "YOUR_CREDENTIAL_ID",
@@ -155,8 +154,8 @@
     {
       "parameters": {
         "operation": "send",
-        "phoneNumberId": "1092180147305432",
-        "recipientPhoneNumber": "=+92XXXXXXXXXX",
+        "phoneNumberId": "YOUR_WHATSAPP_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "={{ $('WhatsApp Trigger').item.json.messages[0].from }}",
         "textBody": "={{ $json.output }}",
         "additionalFields": {}
       },
@@ -168,7 +167,6 @@
       ],
       "id": "09fc642e-dd91-4877-a07e-4e73cae0ec3f",
       "name": "Send message",
-      "webhookId": "8f2b9672-c905-47db-b1e5-42d1a138c0ca",
       "credentials": {
         "whatsAppApi": {
           "id": "YOUR_CREDENTIAL_ID",
@@ -190,7 +188,6 @@
       ],
       "id": "93ab454d-fb40-460f-9644-863852b3db20",
       "name": "Audio download",
-      "webhookId": "64313206-d1eb-41ea-9fc0-dc4634d223fa",
       "credentials": {
         "whatsAppApi": {
           "id": "YOUR_CREDENTIAL_ID",
@@ -345,25 +342,14 @@
       "name": "Edit Fields"
     },
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [
-        1392,
-        672
-      ],
-      "id": "26619f28-95f3-47b6-ae75-52a317c8f3a8",
-      "name": "Merge"
-    },
-    {
       "parameters": {
         "assignments": {
           "assignments": [
             {
               "id": "2041a21a-e1f5-494b-ad18-f35b7668e6bf",
               "name": "text",
-              "value": "={{ $json.content.parts[0] }}",
-              "type": "object"
+              "value": "={{ $json.content?.parts?.map(part => part.text || '').filter(Boolean).join('\\n') || $json.text || '' }}",
+              "type": "string"
             }
           ]
         },
@@ -379,25 +365,14 @@
       "name": "Edit Fields2"
     },
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [
-        1392,
-        864
-      ],
-      "id": "0bc08413-cc11-43b1-aa98-b56f34b825c1",
-      "name": "Merge1"
-    },
-    {
       "parameters": {
         "assignments": {
           "assignments": [
             {
-              "id": "2041a21a-e1f5-494b-ad18-f35b7668e6bf",
+              "id": "6f5722f5-5a3b-428a-98ed-3c433224fa88",
               "name": "text",
-              "value": "={{ $json.content }}",
-              "type": "object"
+              "value": "={{ $json.content?.parts?.map(part => part.text || '').filter(Boolean).join('\\n') || $json.text || '' }}",
+              "type": "string"
             }
           ]
         },
@@ -502,7 +477,6 @@
       ],
       "id": "c321805e-246b-4bf9-9d5b-917c59961c98",
       "name": "Image download",
-      "webhookId": "64313206-d1eb-41ea-9fc0-dc4634d223fa",
       "credentials": {
         "whatsAppApi": {
           "id": "YOUR_CREDENTIAL_ID",
@@ -515,9 +489,7 @@
         "url": "={{ $json.url }}",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "whatsAppApi",
-        "sendHeaders": true,
-        "specifyHeaders": "json",
-        "jsonHeaders": "{\n  \"name\": \"Authorization\",\n  \"value\": \"EAAVSiJQtWz0BRTUpOKPB1NZBpFSdjsccXWf6xi7eeQdb86bLvkGY5tYGgKc0FKdWH9tiT5PZAQZAdS8BBXQWsjpLT4eza85wdN6zpSIaqpHMf0U9wuMUCgy4qRptihK7CANedZC8B8vTT6fLHOvI0bpI5D8wfr7ZBrlxldsAhnp38pFhZAnSxGkftka9MEQr1E4joLMRsdUYMQQJnhL2UO8lDTyUZCuAoH0NiZCn5nTWQUNZAtRmqCzWkWBZA2FhUnhsmNge7i3cg1HVoiR7OqRkBW\"\n}",
+        "sendHeaders": false,
         "options": {
           "response": {
             "response": {
@@ -546,9 +518,7 @@
         "url": "={{ $json.url }}",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "whatsAppApi",
-        "sendHeaders": true,
-        "specifyHeaders": "json",
-        "jsonHeaders": "{\n  \"name\": \"Authorization\",\n  \"value\": \"EAAVSiJQtWz0BRTUpOKPB1NZBpFSdjsccXWf6xi7eeQdb86bLvkGY5tYGgKc0FKdWH9tiT5PZAQZAdS8BBXQWsjpLT4eza85wdN6zpSIaqpHMf0U9wuMUCgy4qRptihK7CANedZC8B8vTT6fLHOvI0bpI5D8wfr7ZBrlxldsAhnp38pFhZAnSxGkftka9MEQr1E4joLMRsdUYMQQJnhL2UO8lDTyUZCuAoH0NiZCn5nTWQUNZAtRmqCzWkWBZA2FhUnhsmNge7i3cg1HVoiR7OqRkBW\"\n}",
+        "sendHeaders": false,
         "options": {
           "response": {
             "response": {
@@ -863,7 +833,7 @@
             {
               "id": "e576da03-9843-4e4c-9f4e-6122b5aee067",
               "name": "Website Url",
-              "value": "https://example-client-site.com/sitemap_products_1.xml?from=10096796958852&to=10276338303108",
+              "value": "https://YOUR-STORE-DOMAIN.example/sitemap_products_1.xml",
               "type": "string"
             }
           ]
@@ -930,14 +900,14 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "YOUR_GOOGLE_SHEET_ID_6",
+          "value": "YOUR_GOOGLE_SHEET_ID",
           "mode": "list",
           "cachedResultName": "Sage Leather",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_6/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit"
         },
         "sheetName": {
           "__rl": true,
-          "value": "gid=0",
+          "value": "YOUR_SHEET_TAB_NAME",
           "mode": "list",
           "cachedResultName": "Sheet1",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_6/edit#gid=0"
@@ -1005,14 +975,14 @@
         "toolDescription": "This tool is used to retrieve accurate product-related data for Sage Leather.",
         "documentId": {
           "__rl": true,
-          "value": "YOUR_GOOGLE_SHEET_ID_6",
+          "value": "YOUR_GOOGLE_SHEET_ID",
           "mode": "list",
           "cachedResultName": "Sage Leather",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_6/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit"
         },
         "sheetName": {
           "__rl": true,
-          "value": "gid=0",
+          "value": "YOUR_SHEET_TAB_NAME",
           "mode": "list",
           "cachedResultName": "Sheet1",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID_6/edit#gid=0"
@@ -1154,7 +1124,7 @@
       "main": [
         [
           {
-            "node": "Merge",
+            "node": "Edit Fields2",
             "type": "main",
             "index": 0
           }
@@ -1172,17 +1142,6 @@
         ]
       ]
     },
-    "Merge": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Edit Fields2": {
       "main": [
         [
@@ -1194,22 +1153,11 @@
         ]
       ]
     },
-    "Merge1": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Analyze an image": {
       "main": [
         [
           {
-            "node": "Merge1",
+            "node": "Edit Fields3",
             "type": "main",
             "index": 0
           }
@@ -1434,8 +1382,7 @@
   },
   "versionId": "026dd320-d982-4341-b95c-f81e273e2cf5",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "9048002ed8c278fe42e5be2cfc7d975726bfe6802a9b7d175c96793befad56a3"
+    "templateCredsSetupCompleted": true
   },
   "id": "9dVLL25Kx38o3Wof",
   "tags": []
