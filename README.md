@@ -1,54 +1,57 @@
-# AI Automation Agents
+# Business Systems & Workflow Automation Portfolio
 
-A collection of production n8n workflows and voice AI agents built for real client use cases — lead response, CRM automation, RAG-powered chat/voice agents, and content automation. Built by **Ahmad**, an AI automation specialist building custom automation systems for service-based and e-commerce businesses.
+A practical portfolio of business-process automation systems built with n8n and connected business tools.
 
-All workflows below are sanitized for public sharing — credentials, sheet IDs, client contact numbers, and webhook URLs have been replaced with placeholders. Import into your own [n8n](https://n8n.io) instance and connect your own credentials to run them.
+**Builder:** Ahmad Ali  
+**Focus:** Workflow automation, operational systems, lead operations, customer communication, CRM workflows and process improvement.
 
-Each project lives in its own folder with its workflow file and a dedicated README explaining what it does, how it works, and how to set it up.
+I build systems that reduce repetitive admin work, improve response speed, organize operational data and make business processes easier to manage. The projects below demonstrate implementation patterns and technical problem-solving. They are not presented as paid client deployments unless explicitly stated.
 
----
+## Projects
 
-## Workflows
-
-| # | Project | What it does |
+| Project | Purpose | Format |
 |---|---|---|
-| 1 | [Roofing Lead Response CRM](./roofing-lead-response-crm/) | End-to-end lead intake, AI qualification, and email replies for a local service business, with Google Sheets as a lightweight CRM. |
-| 2 | [RAG Voice Agent](./rag-voice-agent/) | Vapi-powered phone AI agent that answers calls, filters spam, qualifies leads, and books appointments by voice. |
-| 3 | [WhatsApp RAG Agent — Sage Leather](./whatsapp-rag-agent-sage-leather/) | WhatsApp AI sales/support agent with RAG over a live product catalog; understands text, voice notes, and images. |
-| 4 | [Lead Scraper & Enrichment](./lead-scraper-enrichment/) | Turns a form request into an enriched, deduplicated prospect list with verified emails, ready for a CRM sheet. |
-| 5 | [Email Follow-up Automation](./email-followup-automation/) | Multi-region cold email follow-up sequences with reply handling, sent in batches on schedule. |
-| 6 | [LinkedIn Auto Poster](./linkedin-auto-poster/) | Automated LinkedIn content pipeline — researches a topic, writes the post, generates an image, and publishes. |
-| 7 | [B2B Lead Management & AI Outreach](./b2b-lead-management-ai-outreach/) | Full automated B2B SDR pipeline — validation, enrichment, scoring, AI cold emails, multichannel touchpoints, reply classification, and analytics. |
-| 8 | [Appointment Booking & WhatsApp Reminders](./appointment-booking-whatsapp-reminders/) | WhatsApp appointment reminders for a clinic, with patient self-serve confirm / cancel / reschedule. |
-| 9 | [Salary & Payroll Automation](./salary-payroll-automation/) | Monthly payroll from Sheets attendance — deductions calculated, PDF report generated and emailed to the manager. |
+| [Roofing Lead Response & CRM](./roofing-lead-response-crm/) | Lead intake, qualification, customer response and CRM tracking | n8n |
+| [WhatsApp Product Support](./whatsapp-rag-agent-sage-leather/) | Text, voice and image support with knowledge retrieval and pricing lookup | n8n |
+| [Clinic Appointment Reminders](./appointment-booking-whatsapp-reminders/) | Appointment reminders and patient reply routing | n8n prototype |
+| [Lead Scraping & Enrichment](./lead-scraper-enrichment/) | Lead intake, provider enrichment and spreadsheet output | n8n |
+| [Email Follow-up Sequence](./email-followup-automation/) | Scheduled spreadsheet-driven email sequences | n8n |
+| [LinkedIn Content Workflow](./linkedin-auto-poster/) | AI-assisted content and image preparation | n8n prototype |
+| [B2B Lead Management](./b2b-lead-management-ai-outreach/) | SDR pipeline patterns with simulated integrations | Demonstration |
+| [Vapi Voice Agent](./rag-voice-agent/) | Phone assistant configuration for support and lead qualification | Vapi config |
+| [Attendance & Payroll](./salary-payroll-automation/) | Attendance aggregation and payroll reporting | n8n prototype |
 
----
+## Core capabilities
 
-## Stack
+- n8n workflow design, branching, webhooks and API integrations
+- Google Sheets operational tracking and lightweight CRM patterns
+- WhatsApp and email communication workflows
+- Knowledge retrieval and AI-assisted customer support
+- Voice-agent configuration and backend integration patterns
+- JavaScript in n8n Code nodes, JSON mapping and workflow debugging
 
-| Layer | Tools |
-|---|---|
-| Orchestration | n8n |
-| LLMs | GPT-4o, GPT-4o-mini, GPT-4.1, Google Gemini |
-| Voice | Vapi, Deepgram, AssemblyAI |
-| Vector DB / RAG | Pinecone, OpenAI Embeddings |
-| Data layer | Google Sheets, PostgreSQL |
-| Channels | WhatsApp (Twilio), Gmail, LinkedIn, Webhooks, Slack |
-| Scraping / enrichment | Apify, Tavily |
+## Review and setup
 
-## Setup
+Each project folder includes its export and a README covering purpose, requirements, setup, limitations and suggested test cases. Screenshots are included where available. The Vapi folder contains an assistant configuration, not an n8n workflow.
 
-1. Open a project's folder and read its README for the exact requirements
-2. Import its `.json` file into your n8n instance (`Workflows → Import from File`)
-3. Replace placeholder values (`YOUR_GOOGLE_SHEET_ID_*`, `YOUR_CREDENTIAL_ID`, etc.) with your own credentials and sheet IDs
-4. Set up the corresponding Google Sheets with matching column headers where referenced
-5. For the voice agent, import the JSON config into a [Vapi](https://vapi.ai) assistant and connect your own phone number and webhook
+Import exports into your own environment, reconnect credentials, replace placeholders and test each branch before enabling. A valid JSON export is not proof of successful live execution.
 
-## Also Available
+## Status and security
 
-Alongside these automation workflows, I also set up and manage a lightweight CRM (Google Sheets-based, expandable to full CRM platforms) for tracking leads, follow-ups, and appointment status — built to work directly with the workflows above.
+- Exports are sanitized templates. Reconnect your own credentials and resource IDs.
+- No project should be considered production-ready until credentials, webhook authentication, error paths, duplicate handling, privacy controls and end-to-end tests are verified.
+- Synthetic data and placeholder endpoints are used in demonstration projects. Do not use demo workflows for live outreach.
+- Never commit API keys, bearer tokens, private webhook URLs, personal data or customer records.
+
+## Working approach
+
+I start with the business process: understand current steps, identify repetitive work and failure points, map the data, build the workflow, test edge cases and document the handover. Tools support the operating process rather than being the offer itself.
 
 ## Contact
 
-Built by Ahmad — open to freelance/contract AI automation work.
-Email: vornexia4@gmail.com
+**Ahmad Ali**  
+Email: vornexia4@gmail.com  
+LinkedIn: [linkedin.com/in/ahmad-ali-93a75a384](https://linkedin.com/in/ahmad-ali-93a75a384)  
+GitHub: [github.com/Ahmadali810](https://github.com/Ahmadali810)
+
+Open to remote freelance, contract and operations-automation opportunities.
