@@ -1,44 +1,54 @@
-# Salary & Payroll Automation
+# Attendance & Payroll Calculation Workflow
 
-End-to-end monthly payroll automation — reads employee registration and attendance from Google Sheets, calculates deductions and net salary per employee, generates a formatted PDF report, and emails it to the manager.
+Attendance aggregation and payroll reporting prototype using Google Sheets, n8n code, PDF conversion and Gmail.
 
-## Workflow
+## Overview
 
-![Salary & Payroll Automation workflow](./screenshot.png)
+![Attendance & Payroll Calculation Workflow workflow](./screenshot.png)
 
-## What it does
+## Included capabilities
 
-Attendance in, reviewed PDF in the manager's inbox — monthly payroll without the spreadsheet grind.
-
-## How it works
-
-- A monthly schedule trigger pulls employee registration data and attendance records, looping through employees in batches
-- An attendance calculator counts Present/Absent/Half-day/Leave/Holiday days per employee and totals working hours from time-in/time-out (handling midnight crossovers)
-- A salary engine applies the deduction rules (per-day salary on a 30-day base; leave, absent, and half-days deducted) and writes each employee's payroll row back to the Payroll sheet
-- A second branch converts the payroll data into a styled HTML report, converts it to PDF via an API, and emails the PDF to the manager via Gmail
-
-## Why it matters
-
-Payroll is the most error-sensitive recurring ops task in any company. This turns a manual spreadsheet grind into a scheduled pipeline — attendance in, reviewed PDF in the manager's inbox, with every deduction traceable to its source rows.
-
-## File
-
-- `salary-payroll-automation.json` — n8n workflow, 11 nodes
-
-## Requirements
-
-- n8n instance
-- Google Sheets (employee registration, attendance, payroll)
-- Gmail account
-- PDF conversion API
+- Attendance aggregation by employee
+- Present/absent/leave/holiday/half-day counts
+- Working-time calculation
+- PDF report generation and manager email
 
 ## Setup
 
-1. Import `salary-payroll-automation.json` into n8n (`Workflows → Import from File`)
-2. Replace placeholder values (`YOUR_GOOGLE_SHEET_ID_*`, `YOUR_CREDENTIAL_ID`, PDF API details) with your own credentials and sheet IDs
-3. Set up the registration, attendance, and payroll sheets with matching column headers
-4. Set the monthly schedule trigger to your payroll date
+1. Review this README and the exported JSON before importing.
+2. Import the JSON into a compatible n8n instance.
+3. Replace all `YOUR_*` placeholders and reconnect credentials in your own environment.
+4. Confirm provider node versions, API permissions, data schema, webhook URLs and timezone.
+5. Keep the workflow inactive until the validation tests pass.
 
-## Note
+## Limitations and production checklist
 
-Sanitized for public sharing — credentials, sheet IDs, and email addresses have been replaced with placeholders.
+- Payroll rules vary by employer and jurisdiction; this is an illustrative calculator, not payroll/legal advice.
+- The export contains a fixed historical test period; configure period and pay rules before running.
+- Appending payroll rows can duplicate results on rerun; add a unique employee-period key and upsert protection.
+- Review the external PDF service's privacy terms before sending employee data.
+
+## Suggested validation tests
+
+- [ ] Period boundary dates
+- [ ] Missing/invalid attendance time
+- [ ] Overnight shifts
+- [ ] Half-day and unpaid-leave policy
+- [ ] Rerun does not duplicate payroll rows
+- [ ] PDF attachment is correct
+
+## Security
+
+- Never commit API keys, OAuth tokens, private webhook URLs, phone numbers or customer data.
+- Use least-privilege credentials and provider-side rate limits.
+- Configure authentication and request validation on public webhooks.
+- Test with synthetic records before connecting live customers.
+
+## Verification status
+
+This repository update includes static JSON/configuration and documentation cleanup. It does **not** mean the workflow has been executed end-to-end. Mark a test as passed only after observing the actual execution in your own connected environment.
+
+## Files
+
+- `salary-payroll-automation.json` — workflow/configuration export
+- `screenshot.png` — existing workflow overview

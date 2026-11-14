@@ -1,47 +1,52 @@
-# Roofing Lead Response CRM
+# Roofing Lead Response & Lightweight CRM
 
-End-to-end lead intake and response system for a local service business, built in n8n.
+Lead intake and follow-up workflow using webhooks, AI-assisted response generation, Gmail and Google Sheets.
 
-## Workflow
+## Overview
 
-![Roofing Lead Response CRM workflow](./screenshot.png)
+![Roofing Lead Response & Lightweight CRM workflow](./screenshot.png)
 
-## What it does
+## Included capabilities
 
-Captures leads from a website chatbot and a contact/appointment form, checks whether the contact is a new lead, an old lead requesting a new service, or an existing customer, then routes each case through the right AI-driven response.
-
-## How it works
-
-- Two webhooks receive events: one from a website chatbot widget, one from an appointment/contact form
-- A `Switch` node routes the payload based on source and intent
-- An AI Agent (GPT-4o via OpenAI, with conversation memory) reads the incoming message and the lead's history in Google Sheets to decide how to respond
-- New leads get logged to a "New Leads" sheet; returning leads requesting a different service get logged separately ("Old lead but New Service") so nothing is missed
-- A second AI Agent drafts and sends a personalized email reply via Gmail, and a third layer handles inbound Gmail replies (Gmail Trigger) so the conversation continues automatically
-- All lead data — status, service requested, timestamps — is written back to Google Sheets, functioning as a lightweight CRM
-
-## Why it matters
-
-Service businesses lose leads when nobody responds fast enough. This closes that gap — lead comes in, gets qualified and answered within seconds, and is tracked without a human touching a spreadsheet.
-
-## File
-
-- `roofing-lead-response-crm.json` — n8n workflow, 44 nodes
-
-## Requirements
-
-- n8n instance
-- OpenAI API key (GPT-4o)
-- Google Sheets (New Leads sheet + Old lead but New Service sheet)
-- Gmail account
-- Website chatbot widget + appointment/contact form posting to the webhooks
+- Website lead/contact intake through webhooks
+- Lead lookup and Google Sheets tracking
+- AI-assisted customer response drafting
+- Gmail follow-up branches and inbound email trigger node
 
 ## Setup
 
-1. Import `roofing-lead-response-crm.json` into n8n (`Workflows → Import from File`)
-2. Replace placeholder values (`YOUR_GOOGLE_SHEET_ID_*`, `YOUR_CREDENTIAL_ID`, webhook URLs) with your own credentials and sheet IDs
-3. Set up the Google Sheets with matching column headers
-4. Point your chatbot widget and contact form at the two webhook URLs
+1. Review this README and the exported JSON before importing.
+2. Import the JSON into a compatible n8n instance.
+3. Replace all `YOUR_*` placeholders and reconnect credentials in your own environment.
+4. Confirm provider node versions, API permissions, data schema, webhook URLs and timezone.
+5. Keep the workflow inactive until the validation tests pass.
 
-## Note
+## Limitations and production checklist
 
-Sanitized for public sharing — credentials, sheet IDs, client contact numbers, and webhook URLs have been replaced with placeholders.
+- Configure webhook authentication, rate limiting and request validation before public exposure.
+- Validate Gmail Trigger filters and thread-level duplicate suppression.
+- This export has not been live-tested against the connected business accounts.
+
+## Suggested validation tests
+
+- [ ] Valid and invalid webhook payload
+- [ ] Repeated delivery does not create duplicate leads
+- [ ] Gmail subject/body fields are populated
+- [ ] Inbound reply stops future follow-up
+- [ ] Sheets failure does not silently drop a lead
+
+## Security
+
+- Never commit API keys, OAuth tokens, private webhook URLs, phone numbers or customer data.
+- Use least-privilege credentials and provider-side rate limits.
+- Configure authentication and request validation on public webhooks.
+- Test with synthetic records before connecting live customers.
+
+## Verification status
+
+This repository update includes static JSON/configuration and documentation cleanup. It does **not** mean the workflow has been executed end-to-end. Mark a test as passed only after observing the actual execution in your own connected environment.
+
+## Files
+
+- `roofing-lead-response-crm.json` — workflow/configuration export
+- `screenshot.png` — existing workflow overview

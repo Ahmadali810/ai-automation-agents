@@ -1,43 +1,51 @@
-# Email Follow-up Automation
+# Scheduled Email Follow-up Sequence
 
-Automates a multi-region cold email follow-up sequence (configurable per target market/region) with reply handling.
+A scheduled, spreadsheet-driven email sequence with waits and branching for controlled follow-up campaigns.
 
-## Workflow
+## Overview
 
-![Email Follow-up Automation workflow](./screenshot.png)
+![Scheduled Email Follow-up Sequence workflow](./screenshot.png)
 
-## What it does
+## Included capabilities
 
-Keeps follow-up emails going out on schedule across multiple markets, and picks up replies automatically instead of letting them sit in an inbox.
-
-## How it works
-
-- A scheduled trigger pulls leads from region-specific Google Sheets (one sheet per target market)
-- A `Switch` node routes each lead down the correct regional path
-- Loops through leads in batches, sends a follow-up email via Gmail, and waits a set interval before the next batch — avoiding spam-trigger sending patterns
-- A separate branch handles a manual trigger for one-off follow-ups and processes inbound Gmail replies, so responses to a cold email get picked up automatically rather than sitting in an inbox
-
-## Why it matters
-
-This is the engine behind the daily cold emails — it keeps the follow-up sequence running on schedule without manual sending, across multiple markets at once.
-
-## File
-
-- `email-followup-automation.json` — n8n workflow, 15 nodes
-
-## Requirements
-
-- n8n instance
-- Gmail account
-- Google Sheets (one per target region)
+- Scheduled lead retrieval from Google Sheets
+- Region-based lead grouping and follow-up scheduling
+- Gmail sending and wait/branch logic
+- Spreadsheet logging of sent-message metadata
 
 ## Setup
 
-1. Import `email-followup-automation.json` into n8n (`Workflows → Import from File`)
-2. Replace placeholder values (`YOUR_GOOGLE_SHEET_ID_*`, `YOUR_CREDENTIAL_ID`) with your own credentials and sheet IDs
-3. Set up one Google Sheet per region with matching column headers
-4. Adjust the batch size and wait interval to your sending limits
+1. Review this README and the exported JSON before importing.
+2. Import the JSON into a compatible n8n instance.
+3. Replace all `YOUR_*` placeholders and reconnect credentials in your own environment.
+4. Confirm provider node versions, API permissions, data schema, webhook URLs and timezone.
+5. Keep the workflow inactive until the validation tests pass.
 
-## Note
+## Limitations and production checklist
 
-Sanitized for public sharing — credentials, sheet IDs, and email addresses have been replaced with placeholders.
+- The export does not include a dedicated inbound Gmail Trigger for reply detection; reply-handling claims have been removed.
+- A send action is not reply detection. Add inbound trigger/polling and thread-level suppression before live use.
+- Use consent-compliant lists, unsubscribe/suppression handling and sending limits.
+
+## Suggested validation tests
+
+- [ ] Use an internal test mailbox
+- [ ] Verify at-most-once sending per sequence step
+- [ ] Verify wait timing and stop conditions
+- [ ] Confirm replies are not claimed as detected without an inbound trigger
+
+## Security
+
+- Never commit API keys, OAuth tokens, private webhook URLs, phone numbers or customer data.
+- Use least-privilege credentials and provider-side rate limits.
+- Configure authentication and request validation on public webhooks.
+- Test with synthetic records before connecting live customers.
+
+## Verification status
+
+This repository update includes static JSON/configuration and documentation cleanup. It does **not** mean the workflow has been executed end-to-end. Mark a test as passed only after observing the actual execution in your own connected environment.
+
+## Files
+
+- `email-followup-automation.json` — workflow/configuration export
+- `screenshot.png` — existing workflow overview

@@ -1,43 +1,53 @@
-# Lead Scraper & Enrichment
+# Lead Scraping & Enrichment Pipeline
 
-Takes a form submission (e.g. "find me business leads matching X criteria") and turns it into an enriched, deduplicated list of prospects with verified emails, ready to load into a CRM sheet.
+Lead intake and enrichment using an external scraping provider and spreadsheet output.
 
-## Workflow
+## Overview
 
-![Lead Scraper & Enrichment workflow](./screenshot.png)
+![Lead Scraping & Enrichment Pipeline workflow](./screenshot.png)
 
-## What it does
+## Included capabilities
 
-Turns a simple request into a clean prospect list — scraped, enriched, deduplicated, and sorted by whether a verified email was found.
-
-## How it works
-
-- Triggered by an n8n form submission
-- Uses an Apify actor to scrape business listings/search results for the given criteria
-- Runs the results through cleaning steps (JavaScript code nodes) to parse and normalize the raw SERP/scrape data
-- Attempts to extract or find an email for each business; leads with a found email go to a "Data complete" sheet, leads without go to separate "Without mail" sheets for manual follow-up
-- Deduplicates records before writing to Google Sheets, so the same business never gets contacted twice
-
-## Why it matters
-
-This is the top of the outreach funnel — it's what feeds the cold email and CRM systems with fresh, clean prospect data instead of manually researching each lead.
-
-## File
-
-- `lead-scraper-enrichment.json` — n8n workflow, 16 nodes
-
-## Requirements
-
-- n8n instance
-- Apify account + actor for business-listing scraping
-- Google Sheets (Data complete + Without mail sheets)
+- Lead request intake
+- External scraping/enrichment provider integration
+- Email extraction and normalization
+- Spreadsheet-ready output
 
 ## Setup
 
-1. Import `lead-scraper-enrichment.json` into n8n (`Workflows → Import from File`)
-2. Replace placeholder values (`YOUR_GOOGLE_SHEET_ID_*`, `YOUR_CREDENTIAL_ID`, Apify actor details) with your own credentials and sheet IDs
-3. Set up the Google Sheets with matching column headers
+1. Review this README and the exported JSON before importing.
+2. Import the JSON into a compatible n8n instance.
+3. Replace all `YOUR_*` placeholders and reconnect credentials in your own environment.
+4. Confirm provider node versions, API permissions, data schema, webhook URLs and timezone.
+5. Keep the workflow inactive until the validation tests pass.
 
-## Note
+## Limitations and production checklist
 
-Sanitized for public sharing — credentials, sheet IDs, and API details have been replaced with placeholders.
+- Email syntax validation does not prove deliverability.
+- Provider settings and API access must match the provider's current schema.
+- Limit personal-data scraping to lawful, necessary business-contact data.
+- Clearing deduplication history is not the same as deduplicating the current batch; verify node operation before production.
+
+## Suggested validation tests
+
+- [ ] Empty and malformed input
+- [ ] Duplicate leads in one batch
+- [ ] Missing/invalid email
+- [ ] Provider timeout and rate limit
+- [ ] TLS certificate verification remains enabled
+
+## Security
+
+- Never commit API keys, OAuth tokens, private webhook URLs, phone numbers or customer data.
+- Use least-privilege credentials and provider-side rate limits.
+- Configure authentication and request validation on public webhooks.
+- Test with synthetic records before connecting live customers.
+
+## Verification status
+
+This repository update includes static JSON/configuration and documentation cleanup. It does **not** mean the workflow has been executed end-to-end. Mark a test as passed only after observing the actual execution in your own connected environment.
+
+## Files
+
+- `lead-scraper-enrichment.json` — workflow/configuration export
+- `screenshot.png` — existing workflow overview
