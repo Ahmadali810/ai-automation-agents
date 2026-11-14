@@ -2,6 +2,10 @@
 
 Automates a multi-region cold email follow-up sequence (configurable per target market/region) with reply handling.
 
+## Workflow
+
+![Email Follow-up Automation workflow](./screenshot.png)
+
 ## What it does
 
 Keeps follow-up emails going out on schedule across multiple markets, and picks up replies automatically instead of letting them sit in an inbox.
