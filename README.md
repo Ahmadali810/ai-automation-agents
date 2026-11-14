@@ -11,15 +11,15 @@ I build systems that reduce repetitive admin work, improve response speed, organ
 
 | Project | Purpose | Format |
 |---|---|---|
-| [Roofing Lead Response & CRM](./roofing-lead-response-crm/) | Lead intake, qualification, customer response and CRM tracking | n8n |
-| [WhatsApp Product Support](./whatsapp-rag-agent-sage-leather/) | Text, voice and image support with knowledge retrieval and pricing lookup | n8n |
-| [Clinic Appointment Reminders](./appointment-booking-whatsapp-reminders/) | Appointment reminders and patient reply routing | n8n prototype |
-| [Lead Scraping & Enrichment](./lead-scraper-enrichment/) | Lead intake, provider enrichment and spreadsheet output | n8n |
-| [Email Follow-up Sequence](./email-followup-automation/) | Scheduled spreadsheet-driven email sequences | n8n |
-| [LinkedIn Content Workflow](./linkedin-auto-poster/) | AI-assisted content and image preparation | n8n prototype |
-| [B2B Lead Management](./b2b-lead-management-ai-outreach/) | SDR pipeline patterns with simulated integrations | Demonstration |
-| [Vapi Voice Agent](./rag-voice-agent/) | Phone assistant configuration for support and lead qualification | Vapi config |
-| [Attendance & Payroll](./salary-payroll-automation/) | Attendance aggregation and payroll reporting | n8n prototype |
+| [Roofing Lead Response & CRM](./01-roofing-lead-response-crm/) | Lead intake, qualification, customer response and CRM tracking | n8n |
+| [WhatsApp Product Support](./02-whatsapp-rag-agent-sage-leather/) | Text, voice and image support with knowledge retrieval and pricing lookup | n8n |
+| [Clinic Appointment Reminders](./03-appointment-booking-whatsapp-reminders/) | Appointment reminders and patient reply routing | n8n prototype |
+| [Lead Scraping & Enrichment](./04-lead-scraper-enrichment/) | Lead intake, provider enrichment and spreadsheet output | n8n |
+| [Email Follow-up Sequence](./05-email-followup-automation/) | Scheduled spreadsheet-driven email sequences | n8n |
+| [LinkedIn Content Workflow](./06-linkedin-auto-poster/) | AI-assisted content and image preparation | n8n prototype |
+| [B2B Lead Management](./07-b2b-lead-management-ai-outreach/) | SDR pipeline patterns with simulated integrations | Demonstration |
+| [Vapi Voice Agent](./08-rag-voice-agent/) | Phone assistant configuration for support and lead qualification | Vapi config |
+| [Attendance & Payroll](./09-salary-payroll-automation/) | Attendance aggregation and payroll reporting | n8n prototype |
 
 ## Core capabilities
 
