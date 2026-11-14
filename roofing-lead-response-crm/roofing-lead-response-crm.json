@@ -133,7 +133,7 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "JAoJRLE1f9eKxptt",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "n8n free OpenAI API credits"
         }
       }
@@ -223,7 +223,7 @@
       "name": "Append or update row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -351,7 +351,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -527,7 +527,7 @@
       "name": "New Leads",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -618,7 +618,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -661,7 +661,7 @@
       "name": "OpenAI Chat Model1",
       "credentials": {
         "openAiApi": {
-          "id": "JAoJRLE1f9eKxptt",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "n8n free OpenAI API credits"
         }
       }
@@ -756,7 +756,7 @@
       "webhookId": "f893c7df-1bed-4e1a-8c34-129124ea6505",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Xm6QANx1Lv72h5Gh",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -780,7 +780,7 @@
       "webhookId": "3663c3f7-a19f-44c3-80be-81a45f3a1552",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Xm6QANx1Lv72h5Gh",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -922,7 +922,7 @@
       "name": "Old lead but New Service",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -963,7 +963,7 @@
       "name": "OpenAI Chat Model2",
       "credentials": {
         "openAiApi": {
-          "id": "JAoJRLE1f9eKxptt",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "n8n free OpenAI API credits"
         }
       }
@@ -1058,7 +1058,7 @@
       "webhookId": "f893c7df-1bed-4e1a-8c34-129124ea6505",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Xm6QANx1Lv72h5Gh",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -1082,7 +1082,7 @@
       "webhookId": "3663c3f7-a19f-44c3-80be-81a45f3a1552",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Xm6QANx1Lv72h5Gh",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -1166,7 +1166,7 @@
       "name": "Append row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -1207,7 +1207,7 @@
       "name": "OpenAI Chat Model3",
       "credentials": {
         "openAiApi": {
-          "id": "JAoJRLE1f9eKxptt",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "n8n free OpenAI API credits"
         }
       }
@@ -1308,7 +1308,7 @@
       "webhookId": "f893c7df-1bed-4e1a-8c34-129124ea6505",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Xm6QANx1Lv72h5Gh",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -1332,7 +1332,7 @@
       "webhookId": "3663c3f7-a19f-44c3-80be-81a45f3a1552",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Xm6QANx1Lv72h5Gh",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -1358,7 +1358,7 @@
       "name": "Gmail Trigger",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Xm6QANx1Lv72h5Gh",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -1401,7 +1401,7 @@
       "name": "OpenAI Chat Model5",
       "credentials": {
         "openAiApi": {
-          "id": "JAoJRLE1f9eKxptt",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "n8n free OpenAI API credits"
         }
       }
@@ -1478,7 +1478,7 @@
       "name": "Append or update row in sheet1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -1519,7 +1519,7 @@
       "webhookId": "9c119203-af46-49bc-a743-c1b67f412100",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Xm6QANx1Lv72h5Gh",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }

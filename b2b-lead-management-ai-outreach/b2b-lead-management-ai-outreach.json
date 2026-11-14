@@ -197,7 +197,8 @@
         "model": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "gpt-4o-mini",
+          "cachedResultName": "gpt-4o-mini"
         },
         "builtInTools": {},
         "options": {}
@@ -209,7 +210,13 @@
         2640,
         1904
       ],
-      "typeVersion": 1.3
+      "typeVersion": 1.3,
+      "credentials": {
+        "openAiApi": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "OpenAI API"
+        }
+      }
     },
     {
       "parameters": {
@@ -256,7 +263,13 @@
         1856
       ],
       "webhookId": "a6fbcd53-b491-4776-ad78-4a50ee405e7d",
-      "typeVersion": 2.1
+      "typeVersion": 2.1,
+      "credentials": {
+        "smtp": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "SMTP account"
+        }
+      }
     },
     {
       "parameters": {
@@ -299,13 +312,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "4aace4a3-b6c9-4112-91a0-478b1b55d8be",
       "name": "Log Email Sent to DB",
@@ -314,7 +328,13 @@
         7712,
         1856
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -353,7 +373,8 @@
         "model": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "gpt-4o-mini",
+          "cachedResultName": "gpt-4o-mini"
         },
         "builtInTools": {},
         "options": {}
@@ -365,7 +386,13 @@
         8384,
         2096
       ],
-      "typeVersion": 1.3
+      "typeVersion": 1.3,
+      "credentials": {
+        "openAiApi": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "OpenAI API"
+        }
+      }
     },
     {
       "parameters": {
@@ -537,13 +564,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "1c07b4ab-6f1c-467a-87a8-4fd3d21a2def",
       "name": "Log Qualified Event",
@@ -552,7 +580,13 @@
         10704,
         1664
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -603,13 +637,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "c6e10226-b26d-42a7-b974-521190b6862b",
       "name": "Log Follow-up Event",
@@ -618,7 +653,13 @@
         10688,
         1936
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -655,13 +696,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "2bae1599-4933-47e4-aa0c-9304625586b4",
       "name": "Log Closed Lost Event",
@@ -670,7 +712,13 @@
         9824,
         2112
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -707,13 +755,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "3e0eb401-0e65-4040-8471-037da7c01d26",
       "name": "Log Manual Review Event",
@@ -722,7 +771,13 @@
         10352,
         2288
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -846,13 +901,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "8698436d-f5da-4d5b-8cb5-0e923a77a05e",
       "name": "Insert Enrichment Success Event",
@@ -861,7 +917,13 @@
         2112,
         896
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -892,13 +954,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "6544838f-3b0e-499b-b215-09e60c4c62dd",
       "name": "Insert Enrichment Failed Event",
@@ -907,7 +970,13 @@
         1856,
         1120
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1050,13 +1119,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "dbf73d0d-82bf-4e38-8b4b-545170439df9",
       "name": "Log HIGH Score Event",
@@ -1065,7 +1135,13 @@
         2112,
         1488
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1108,13 +1184,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "a5eb6b54-5104-4f75-9086-a302f9a64cde",
       "name": "Log MEDIUM Score Event",
@@ -1123,7 +1200,13 @@
         2112,
         1696
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1166,13 +1249,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "f379f08d-5980-479e-b90e-bc9a4edf7745",
       "name": "Log LOW Score Event",
@@ -1181,7 +1265,13 @@
         2112,
         1904
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1320,13 +1410,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "4b4b7f5c-5f57-4889-a99b-819d369fa223",
       "name": "Log LinkedIn Success",
@@ -1335,20 +1426,27 @@
         6000,
         1552
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "8f7ea44d-a3ac-49af-8ebe-533eb26067cc",
       "name": "Log LinkedIn Failure",
@@ -1357,7 +1455,13 @@
         5776,
         1648
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1426,13 +1530,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "b736ae57-1090-4969-950c-c7b99c506d5a",
       "name": "Log WhatsApp Success",
@@ -1441,20 +1546,27 @@
         7328,
         1536
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "f84aa8fd-0a55-42c5-b24d-f8f8036936f2",
       "name": "Log WhatsApp Failure",
@@ -1463,7 +1575,13 @@
         7488,
         1648
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1484,13 +1602,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "5c4c1413-c371-4143-a41a-aa46de1d5f04",
       "name": "Log Subject Variant",
@@ -1499,7 +1618,13 @@
         3376,
         1696
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1524,7 +1649,8 @@
         "model": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "gpt-4o-mini",
+          "cachedResultName": "gpt-4o-mini"
         },
         "builtInTools": {},
         "options": {}
@@ -1536,7 +1662,13 @@
         9680,
         1712
       ],
-      "typeVersion": 1.3
+      "typeVersion": 1.3,
+      "credentials": {
+        "openAiApi": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "OpenAI API"
+        }
+      }
     },
     {
       "parameters": {
@@ -1571,13 +1703,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "e9316ad2-9b86-4a4f-b209-cef168bad7fd",
       "name": "Insert Meeting Record",
@@ -1586,7 +1719,13 @@
         10480,
         1664
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1607,13 +1746,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "0798406a-1c6a-4e6a-88a2-1e825806a4f4",
       "name": "Insert Extended Follow-up Event",
@@ -1622,7 +1762,13 @@
         10112,
         1936
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1653,13 +1799,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "e650c2bc-8dc2-4f7c-a6ee-63fcd31cd449",
       "name": "Log Manual Review Notification",
@@ -1668,7 +1815,13 @@
         10096,
         2288
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1714,13 +1867,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "9c12b7c9-b4c5-4cb9-9247-7a63272bf3eb",
       "name": "Insert Analytics Daily Row",
@@ -1729,7 +1883,13 @@
         11552,
         1952
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1819,13 +1979,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "9ca556a9-dbd3-46d3-a36d-ba4a94b945d6",
       "name": "Log Invalid Lead Event",
@@ -1834,7 +1995,13 @@
         1568,
         352
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1902,13 +2069,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "5819bf89-2ae8-440d-9941-7f1eb6640c5f",
       "name": "Log Email Rate Limited",
@@ -1917,7 +2085,13 @@
         3936,
         1616
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -1971,13 +2145,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "249cf3ce-d80b-43d5-8a32-1c52a8a0e21c",
       "name": "Log LinkedIn Rate Limited",
@@ -1986,7 +2161,13 @@
         5376,
         1520
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -2040,13 +2221,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "56b2a16e-f8d7-42d3-aa70-bc2e8d97b18d",
       "name": "Log WhatsApp Rate Limited",
@@ -2055,7 +2237,13 @@
         6912,
         1472
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -2109,13 +2297,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "fb009c16-0f6e-41f4-8423-b89460c69a5c",
       "name": "Log Geo Blocked",
@@ -2124,7 +2313,13 @@
         10640,
         1088
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -2164,13 +2359,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "2e49a3fa-528f-4d7c-87d1-e861c065e256",
       "name": "Log GDPR Sensitive",
@@ -2179,7 +2375,13 @@
         832,
         1600
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -2255,13 +2457,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "ca5f3230-9b44-4b44-bd29-0170167b512e",
       "name": "Log Escalated to Human",
@@ -2270,7 +2473,13 @@
         10192,
         1200
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -2291,13 +2500,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "789113d4-2b97-4ff1-9443-2e1219e171c3",
       "name": "Log Send Time Planned",
@@ -2306,7 +2516,13 @@
         1232,
         1696
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -2340,13 +2556,14 @@
         "schema": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "public"
         },
         "table": {
           "__rl": true,
           "mode": "name",
-          "value": ""
-        }
+          "value": "YOUR_TABLE_NAME"
+        },
+        "operation": "insert"
       },
       "id": "47145c9f-a54c-4614-afaa-1e32b372e856",
       "name": "Insert Execution Run Record",
@@ -2355,7 +2572,13 @@
         12336,
         2208
       ],
-      "typeVersion": 2.6
+      "typeVersion": 2.6,
+      "credentials": {
+        "postgres": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Postgres account"
+        }
+      }
     },
     {
       "parameters": {
@@ -2380,7 +2603,8 @@
         "model": {
           "__rl": true,
           "mode": "list",
-          "value": ""
+          "value": "gpt-4o-mini",
+          "cachedResultName": "gpt-4o-mini"
         },
         "builtInTools": {},
         "options": {}
@@ -2392,7 +2616,13 @@
         11488,
         2704
       ],
-      "typeVersion": 1.3
+      "typeVersion": 1.3,
+      "credentials": {
+        "openAiApi": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "OpenAI API"
+        }
+      }
     },
     {
       "parameters": {
@@ -2440,10 +2670,12 @@
         "channelId": {
           "__rl": true,
           "mode": "name",
-          "value": ""
+          "value": "YOUR_SLACK_CHANNEL_ID"
         },
         "text": "=📊 *SDR Workflow Run Complete*\n\n*Run ID:* {{ $json.run_id }}\n*Timestamp:* {{ $json.run_timestamp }}\n\n*Results:*\n• Total Leads: {{ $json.stats.total_leads }}\n• Qualified: {{ $json.stats.qualified }}\n• Follow-ups: {{ $json.stats.follow_up_scheduled }}\n• Closed Lost: {{ $json.stats.closed_lost }}\n• Manual Review: {{ $json.stats.needs_manual_review }}\n\n*Rates:*\n• Qualification Rate: {{ $json.stats.qualified_rate }}\n• Enrichment Success: {{ $json.stats.enrichment_success_rate }}\n• Multichannel: {{ $json.stats.multichannel_rate }}\n\n*Summary:* {{ $json.final_summary }}",
-        "otherOptions": {}
+        "otherOptions": {},
+        "resource": "message",
+        "operation": "post"
       },
       "id": "9649936c-2ea0-4ce0-9485-0b2d5e6b3723",
       "name": "Notify Team – Run Summary",
@@ -2453,7 +2685,13 @@
         2816
       ],
       "webhookId": "44fb004a-65b5-44e2-80cb-8b1a1d652ba7",
-      "typeVersion": 2.4
+      "typeVersion": 2.4,
+      "credentials": {
+        "slackApi": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Slack account"
+        }
+      }
     },
     {
       "parameters": {

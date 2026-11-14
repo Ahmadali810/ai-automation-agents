@@ -5,7 +5,10 @@
       "parameters": {
         "rule": {
           "interval": [
-            {}
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
           ]
         }
       },
@@ -46,7 +49,7 @@
       "name": "Get row(s) in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "cthhs7vrlmkNAolf",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -66,7 +69,7 @@
       "name": "Search",
       "credentials": {
         "tavilyApi": {
-          "id": "FDE2oTGtjeAGrc64",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Tavily account"
         }
       }
@@ -109,7 +112,7 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "fCdD16deDJ660Psf",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "n8n free OpenAI API credits"
         }
       }
@@ -135,7 +138,8 @@
       "parameters": {
         "resource": "image",
         "prompt": "={{ $json.output }}",
-        "options": {}
+        "options": {},
+        "model": "dall-e-3"
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 2.1,
@@ -147,7 +151,7 @@
       "name": "Generate an image",
       "credentials": {
         "openAiApi": {
-          "id": "fCdD16deDJ660Psf",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "n8n free OpenAI API credits"
         }
       }
@@ -168,7 +172,7 @@
       "name": "Create a post",
       "credentials": {
         "linkedInOAuth2Api": {
-          "id": "gpV723lVTAEKHA5r",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "LinkedIn OAuth2 API"
         }
       }

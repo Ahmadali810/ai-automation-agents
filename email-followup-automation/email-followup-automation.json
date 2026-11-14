@@ -5,7 +5,10 @@
       "parameters": {
         "rule": {
           "interval": [
-            {}
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
           ]
         }
       },
@@ -49,7 +52,7 @@
       "name": "Get row(s) in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -123,7 +126,7 @@
       "webhookId": "d35763f9-9da3-4e78-b249-078183da5160",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Xm6QANx1Lv72h5Gh",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -167,7 +170,7 @@
       "name": "Get row(s) in sheet1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -192,7 +195,7 @@
       "webhookId": "616f60e8-5c05-4e8a-913e-418082319556",
       "credentials": {
         "gmailOAuth2": {
-          "id": "Xm6QANx1Lv72h5Gh",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Gmail OAuth2 API"
         }
       }
@@ -403,7 +406,7 @@
       "name": "USA Leads",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -564,7 +567,7 @@
       "name": "UK Leads",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -678,7 +681,7 @@
       "name": "AU leads",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -697,7 +700,9 @@
       "name": "Loop Over Items1"
     },
     {
-      "parameters": {},
+      "parameters": {
+        "amount": 30
+      },
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [

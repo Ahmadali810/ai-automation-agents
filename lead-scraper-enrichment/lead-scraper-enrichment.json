@@ -453,7 +453,7 @@
       "name": "Data complete",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -547,7 +547,7 @@
       "name": "Without mail",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -631,7 +631,7 @@
       "name": "Without mail1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "jtjDc51ARVPCsz6G",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -663,7 +663,7 @@
       "waitBetweenTries": 5000,
       "credentials": {
         "apifyOAuth2Api": {
-          "id": "Wr8gko1PLt0qbbn7",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Apify OAuth2 API"
         }
       },

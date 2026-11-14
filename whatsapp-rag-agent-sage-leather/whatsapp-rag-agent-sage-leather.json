@@ -31,7 +31,7 @@
       "name": "Google Drive Trigger",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "t1pwhIvHgiYhDdwz",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Drive OAuth2 API"
         }
       }
@@ -81,7 +81,7 @@
       "name": "Embeddings OpenAI",
       "credentials": {
         "openAiApi": {
-          "id": "XKiVSn1ZiqHlN1pG",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "n8n free OpenAI API credits"
         }
       }
@@ -104,7 +104,7 @@
       "webhookId": "713fa4f6-e3a4-46ef-8047-0ed8e84e9388",
       "credentials": {
         "whatsAppTriggerApi": {
-          "id": "ofoKvKINVGzEkUrM",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "WhatsApp OAuth account"
         }
       }
@@ -147,7 +147,7 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "XKiVSn1ZiqHlN1pG",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "n8n free OpenAI API credits"
         }
       }
@@ -171,7 +171,7 @@
       "webhookId": "8f2b9672-c905-47db-b1e5-42d1a138c0ca",
       "credentials": {
         "whatsAppApi": {
-          "id": "TKXYs9EI0RN3Ynht",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "WhatsApp account"
         }
       }
@@ -193,7 +193,7 @@
       "webhookId": "64313206-d1eb-41ea-9fc0-dc4634d223fa",
       "credentials": {
         "whatsAppApi": {
-          "id": "TKXYs9EI0RN3Ynht",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "WhatsApp account"
         }
       }
@@ -316,7 +316,7 @@
       "name": "Transcribe a recording1",
       "credentials": {
         "googlePalmApi": {
-          "id": "LxVPnOh5JiA51fQX",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -435,7 +435,7 @@
       "name": "Analyze an image",
       "credentials": {
         "googlePalmApi": {
-          "id": "LxVPnOh5JiA51fQX",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -454,7 +454,7 @@
       "name": "Embeddings OpenAI1",
       "credentials": {
         "openAiApi": {
-          "id": "XKiVSn1ZiqHlN1pG",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "n8n free OpenAI API credits"
         }
       }
@@ -483,7 +483,7 @@
       "name": "retrieve_sage_leather_info",
       "credentials": {
         "pineconeApi": {
-          "id": "ShuB4m0bjZfEVYkB",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Pinecone account"
         }
       }
@@ -505,7 +505,7 @@
       "webhookId": "64313206-d1eb-41ea-9fc0-dc4634d223fa",
       "credentials": {
         "whatsAppApi": {
-          "id": "TKXYs9EI0RN3Ynht",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "WhatsApp account"
         }
       }
@@ -536,7 +536,7 @@
       "name": "Voice Request",
       "credentials": {
         "whatsAppApi": {
-          "id": "TKXYs9EI0RN3Ynht",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "WhatsApp account"
         }
       }
@@ -567,7 +567,7 @@
       "name": "Image Request1",
       "credentials": {
         "whatsAppApi": {
-          "id": "TKXYs9EI0RN3Ynht",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "WhatsApp account"
         }
       }
@@ -592,7 +592,7 @@
       "name": "Sage Leather",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "t1pwhIvHgiYhDdwz",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Drive OAuth2 API"
         }
       }
@@ -620,7 +620,7 @@
       "name": "Seage Leather Data",
       "credentials": {
         "pineconeApi": {
-          "id": "ShuB4m0bjZfEVYkB",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Pinecone account"
         }
       }
@@ -629,7 +629,10 @@
       "parameters": {
         "rule": {
           "interval": [
-            {}
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
           ]
         }
       },
@@ -991,7 +994,7 @@
       "name": "Append row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "3kfKCFcO7JLTBZ67",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }
@@ -1026,7 +1029,7 @@
       "name": "Pricing",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "3kfKCFcO7JLTBZ67",
+          "id": "YOUR_CREDENTIAL_ID",
           "name": "Google Sheets OAuth2 API"
         }
       }

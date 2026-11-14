@@ -141,7 +141,13 @@
         -32
       ],
       "id": "5e22bf92-6677-4e0e-b97e-48c7a4e369d8",
-      "name": "Emp. ID and Other data"
+      "name": "Emp. ID and Other data",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
     },
     {
       "parameters": {
@@ -176,7 +182,13 @@
         16
       ],
       "id": "fa585684-bc92-47c9-93d3-2392e4435eff",
-      "name": "Emp. Attendence sheet"
+      "name": "Emp. Attendence sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
     },
     {
       "parameters": {
@@ -383,7 +395,13 @@
         16
       ],
       "id": "18b91d23-b15c-4f71-9ed1-204ea50680a7",
-      "name": "Payroll sheet"
+      "name": "Payroll sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
     },
     {
       "parameters": {
@@ -469,7 +487,13 @@
       ],
       "id": "0860d832-0716-4c54-bb82-d7fdde541f9a",
       "name": "Send Report",
-      "webhookId": "56fb04b2-fe5b-4bbb-9f97-88a0eaffcdf3"
+      "webhookId": "56fb04b2-fe5b-4bbb-9f97-88a0eaffcdf3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "Gmail OAuth2 API"
+        }
+      }
     }
   ],
   "connections": {
