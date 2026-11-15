@@ -851,7 +851,7 @@
     },
     {
       "parameters": {
-        "content": "",
+        "content": "1. Knowledge base — Drive files load, split and embed into Pinecone. Runs when Drive files change.",
         "height": 608,
         "width": 896
       },
@@ -866,7 +866,7 @@
     },
     {
       "parameters": {
-        "content": "",
+        "content": "2. Scheduled sync — pulls product pages, parses HTML, appends rows to the sheet.",
         "height": 352,
         "width": 2384
       },
@@ -881,7 +881,7 @@
     },
     {
       "parameters": {
-        "content": "",
+        "content": "3. Live WhatsApp replies — voice and image messages transcribed and analysed, answered by the AI Agent with Pinecone product info and Pricing sheet.",
         "height": 784,
         "width": 2464,
         "color": 3
